@@ -1,18 +1,41 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
-import Vue from 'vue'
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
-import App from './App'
-import router from './router'
+//这个是全局文件
 
-Vue.use(ElementUI);
-Vue.config.productionTip = false
+import mock from '../mock/mock.js'
 
-/* eslint-disable no-new */
+//全局引入jq
+import $ from 'jquery';
+//全局引入vue
+import Vue from 'vue';
+
+
+//全局引入共用css
+// import './styles/common.scss';
+//引入字体样式
+// import './styles/fonts/iconfont.css';
+//全局引入路由配置
+import router from './router';
+
+
+//全局状态控制引入
+import store from './store/store';
+
+
+//全局加载resource拦截器
+import './axios/';
+import Axios from 'axios';
+Vue.prototype.$http = Axios;
+
+
+//引入需要渲染的视图组件
+import App from './App';
+
+//创建全局实例
 new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>'
-})
+    el:'#app',
+    router,
+    store,
+    template:'<App/>',
+    components:{App}
+});
+
+
