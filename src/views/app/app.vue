@@ -1,9 +1,9 @@
 <template>
 
   <div>
-    <router-view name = "head"></router-view>
-    <router-view name ='content'></router-view>
-    <router-view name = 'footer'></router-view>
+    <router-view name = "v-header"></router-view>
+    <router-view name ='v-content'></router-view>
+    <router-view name = 'v-footer'></router-view>
   </div>
 
 </template>

@@ -6,8 +6,9 @@ import mock from '../mock/mock.js'
 import $ from 'jquery';
 //全局引入vue
 import Vue from 'vue';
-
-
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(ElementUI);
 //全局引入共用css
 // import './styles/common.scss';
 //引入字体样式

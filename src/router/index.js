@@ -25,8 +25,12 @@ import store from '../store/store'
 //   }, 'home')
 // };
 
-import Home from '../views/home/home'
-import NavMenu from '../views/head/NavMenu'
+import home from '../views/home/home'
+import problems from '../views/problem/problems'
+import status from '../views/status/status'
+import contests from '../views/contest/contests'
+import rank from '../views/rank/rank'
+import NavMenu from '../views/head/nav-menu'
 import footer from '../views/footer/footer'
 
 
@@ -41,15 +45,64 @@ let router = new Router({
         {
           path: 'home',
           name: 'home',
-          component: {
-            head: NavMenu,
-            content: NavMenu,
-            footer: footer,
+          components: {
+            'v-header': NavMenu,
+            'v-content': home,
+            'v-footer': footer
           },
           meta: {
-            title: "首页",
+            title: "Home",
             need_log: false
-          }
+          },
+        },
+        {
+          path: 'problems',
+          name: 'problems',
+          components: {
+            'v-header': NavMenu,
+            'v-content': problems,
+            'v-footer': footer
+          },
+          meta: {
+            title: "Problems",
+            need_log: false
+          },
+        },
+        {
+          path: 'status',
+          components: {
+            'v-header': NavMenu,
+            'v-content': status,
+            'v-footer': footer
+          },
+          meta: {
+            title: "Status",
+            need_log: false
+          },
+        },
+        {
+          path: 'contests',
+          components: {
+            'v-header': NavMenu,
+            'v-content': contests,
+            'v-footer': footer
+          },
+          meta: {
+            title: "Contests",
+            need_log: false
+          },
+        },
+        {
+          path: 'rank',
+          components: {
+            'v-header': NavMenu,
+            'v-content': rank,
+            'v-footer': footer
+          },
+          meta: {
+            title: "Rank",
+            need_log: false
+          },
         }
       ]
     }
@@ -63,6 +116,7 @@ router.beforeEach((to, from, next) => {
   console.log("to",to);
   console.log("from",from);
     if (to !== undefined) {
+      console.log("need_log",to.meta.need_log);
       if (to.meta.need_log) {
         console.log(to.meta.need_log);
         if (!store.state.userInfo.token) {
