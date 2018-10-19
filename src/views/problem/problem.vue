@@ -1,7 +1,28 @@
 <template>
     <div>
       <div>
-        Title:{{problem.title}}
+        {{problem.title}}
+      </div>
+      <div>
+        Time Limit:{{problem.time_limit}}
+      </div>
+      <div>
+        Memory Limit:{{problem.memory_limit}}
+      </div>
+      <div>
+        Description:{{problem.description}}}
+      </div>
+      <div>
+        Input:{{problem.input_description}}
+      </div>
+      <div>
+        Output:{{problem.output_description}}
+      </div>
+      <div>
+        Sample Input:{{problem.sample_input}}
+      </div>
+      <div>
+        Sample Output:{{problem.sample_output}}
       </div>
       <div class="codemirror" style="width: 500px;">
         <!-- codemirror -->
