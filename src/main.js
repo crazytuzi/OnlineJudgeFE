@@ -8,7 +8,11 @@ import $ from 'jquery';
 import Vue from 'vue';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import VueCodemirror from 'vue-codemirror'
+// require styles
+import 'codemirror/lib/codemirror.css'
 Vue.use(ElementUI);
+Vue.use(VueCodemirror);
 //全局引入共用css
 // import './styles/common.scss';
 //引入字体样式

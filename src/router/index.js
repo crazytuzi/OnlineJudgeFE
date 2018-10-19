@@ -32,7 +32,7 @@ import contests from '../views/contest/contests'
 import rank from '../views/rank/rank'
 import NavMenu from '../views/head/nav-menu'
 import footer from '../views/footer/footer'
-
+import problem from '../views/problem/problem'
 
 
 //配置路由
@@ -103,6 +103,19 @@ let router = new Router({
             title: "Rank",
             need_log: false
           },
+        },
+        {
+          path: 'problem/:problem_id',
+          name: 'problem',
+          components: {
+            'v-header': NavMenu,
+            'v-content': problem,
+            'v-footer': footer
+          },
+          meta: {
+            title: "Problem",
+            need_log: false
+          },
         }
       ]
     }
@@ -112,11 +125,7 @@ let router = new Router({
 //进行路由判断
 router.beforeEach((to, from, next) => {
   let nextPath = cookie.getCookie('nextPath');
-  console.log(nextPath);
-  console.log("to",to);
-  console.log("from",from);
     if (to !== undefined) {
-      console.log("need_log",to.meta.need_log);
       if (to.meta.need_log) {
         console.log(to.meta.need_log);
         if (!store.state.userInfo.token) {

@@ -79,6 +79,7 @@
             return this.problems[index].accepted_number/this.problems[index].submission_number*100;
           },
           columnClickHandler(column){
+            this.$router.push("/app/problem/"+this.problems[column].problem_id);
           }
       },
     }

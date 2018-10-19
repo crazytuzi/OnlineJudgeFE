@@ -46,7 +46,6 @@
     },
     methods: {
       handleSelect(key, keyPath) {
-        console.log(key,keyPath);
         this.$router.push(this.menuList[key-1].link);
       }
     }
