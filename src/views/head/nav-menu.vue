@@ -2,11 +2,14 @@
   <div>
     <el-menu :default-active="defaultIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
       <el-menu-item v-for = "menu in menuList" :index="menu.index"><i :class="menu.icon"></i>{{menu.name}}</el-menu-item>
+      <BtnMenu></BtnMenu>
     </el-menu>
   </div>
 </template>
 <script>
+  import BtnMenu from './btn-menu'
   export default {
+    components: {BtnMenu},
     data() {
       return {
         menuList: [

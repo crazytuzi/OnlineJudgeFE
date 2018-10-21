@@ -8,6 +8,10 @@ export const getProblems = params => { return axios.get(`${host}/problems/`,{ pa
 
 //获取题目信息
 export const getProblemDetail = params => { return axios.get(`${host}/problems/`,{ params: params })};
+//登录
+export const login = params => {
+  return axios.post(`${host}/login/`, params)
+};
 
 //获取商品类别信息
 export const queryCategorygoods = params => { return axios.get(`${host}/indexgoods/`) }
@@ -58,10 +62,7 @@ export const getAllFavs = () => { return axios.get(`${host}/userfavs/`) }
 //判断是否收藏
 export const getFav = goodsId => { return axios.get(`${host}/userfavs/`+goodsId+'/') }
 
-//登录
-export const login = params => {
-  return axios.post(`${host}/login/`, params)
-}
+
 
 //注册
 
