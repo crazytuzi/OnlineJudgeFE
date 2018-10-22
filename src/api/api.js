@@ -12,6 +12,15 @@ export const getProblemDetail = params => { return axios.get(`${host}/problems/`
 export const login = params => {
   return axios.post(`${host}/login/`, params)
 };
+//注册
+export const register = params => {
+  return axios.post(`${host}/register/`, params)
+};
+
+
+export const getUser = params => {
+  return axios.get(`${host}/users/`, { params: params })
+};
 
 //获取商品类别信息
 export const queryCategorygoods = params => { return axios.get(`${host}/indexgoods/`) }
@@ -64,16 +73,13 @@ export const getFav = goodsId => { return axios.get(`${host}/userfavs/`+goodsId+
 
 
 
-//注册
 
-export const register = parmas => { return axios.post(`${host}/users/`, parmas) }
 
 //短信
 export const getMessage = parmas => { return axios.post(`${host}/code/`, parmas) }
 
 
-//获取用户信息
-export const getUserDetail = () => { return axios.get(`${host}/users/1/`) }
+
 
 //修改用户信息
 export const updateUserInfo = params => { return axios.patch(`${host}/users/1/`, params) }
