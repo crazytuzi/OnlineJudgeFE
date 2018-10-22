@@ -1,7 +1,7 @@
 <template>
   <div>
-    <el-menu :default-active="defaultIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-      <el-menu-item v-for = "menu in menuList" :index="menu.index"><i :class="menu.icon"></i>{{menu.name}}</el-menu-item>
+    <el-menu :default-active="defaultIndex" class="el-menu-demo" mode="horizontal" @select="horselectHandler">
+      <el-menu-item v-for = "menu in hormenuList" :index="menu.index"><i :class="menu.icon"></i>{{menu.name}}</el-menu-item>
       <BtnMenu></BtnMenu>
     </el-menu>
   </div>
@@ -12,7 +12,7 @@
     components: {BtnMenu},
     data() {
       return {
-        menuList: [
+        hormenuList: [
           {
             name: "Home",
             index: "1",
@@ -48,8 +48,8 @@
       };
     },
     methods: {
-      handleSelect(key, keyPath) {
-        this.$router.push(this.menuList[key-1].link);
+      horselectHandler(key, keyPath) {
+        this.$router.push(this.hormenuList[key-1].link);
       }
     }
   }

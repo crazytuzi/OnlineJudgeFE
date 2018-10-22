@@ -33,6 +33,7 @@ import rank from '../views/rank/rank'
 import NavMenu from '../views/head/nav-menu'
 import footer from '../views/footer/footer'
 import problem from '../views/problem/problem'
+import profile from '../views/user/profile'
 
 
 //配置路由
@@ -116,6 +117,19 @@ let router = new Router({
             title: "Problem",
             need_log: false
           },
+        },
+        {
+          path: 'profile',
+          name: 'profile',
+          components: {
+            'v-header': NavMenu,
+            'v-content': profile,
+            'v-footer': footer
+          },
+          meta: {
+            title: "Profile",
+            need_log: true
+          },
         }
       ]
     }
@@ -128,11 +142,14 @@ router.beforeEach((to, from, next) => {
     if (to !== undefined) {
       if (to.meta.need_log) {
         console.log(to.meta.need_log);
+        console.log("需要登陆");
         if (!store.state.userInfo.token) {
+          console.log("没有登陆");
           next({
             path: '/app/home',
           });
         } else {
+          console.log("登陆了");
           next();
         }
       } else {

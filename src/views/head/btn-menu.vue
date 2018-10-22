@@ -203,6 +203,8 @@
           cookie.delCookie('token');
           cookie.delCookie('name');
           this.$store.dispatch('setInfo');
+        } else if (command == 'Profile') {
+          this.$router.push('/app/profile');
         }
       },
       checkEmail(emailAddress) {
