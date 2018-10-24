@@ -7,7 +7,10 @@ let host = 'http://127.0.0.1:8000/api';
 export const getProblems = params => { return axios.get(`${host}/problems/`,{ params: params  })};
 
 //获取题目信息
-export const getProblemDetail = params => { return axios.get(`${host}/problems/`,{ params: params })};
+export const getProblemDetail = problemId => { return axios.get(`${host}/problems/${problemId}`+'/')};
+
+
+
 //登录
 export const login = params => {
   return axios.post(`${host}/login/`, params)

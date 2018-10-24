@@ -67,11 +67,10 @@ int main()
         },
         methods: {
             getProblem(){
-              getProblemDetail({
-                "problem_id":this.problem_id
-              }).then((response)=>{
-                let data = response.data;
-                this.problem = data.results[0];
+              getProblemDetail(
+                this.problem_id
+              ).then((response)=>{
+                this.problem = response.data;
               }).catch((function (error) {
                 console.log(error);
               }));
