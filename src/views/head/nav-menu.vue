@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-menu :default-active="defaultIndex" class="el-menu-demo" mode="horizontal" @select="horselectHandler">
-      <el-menu-item v-for = "menu in hormenuList" :index="menu.index"><i :class="menu.icon"></i>{{menu.name}}</el-menu-item>
+      <el-menu-item v-for = "(menu,index) in hormenuList" :index="menu.index" :key="index"><i :class="menu.icon"></i>{{menu.name}}</el-menu-item>
       <BtnMenu></BtnMenu>
     </el-menu>
   </div>
