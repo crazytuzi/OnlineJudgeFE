@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-menu :default-active="defaultIndex" class="el-menu-vertical-demo" mode="vertical" @select="verselectHandler">
-      <el-menu-item v-for = "menu in vermenuList" :index="menu.index"><i :class="menu.icon"></i>{{menu.name}}</el-menu-item>
+      <el-menu-item v-for = "(menu,index) in vermenuList" :index="menu.index" :key="index"><i :class="menu.icon"></i>{{menu.name}}</el-menu-item>
     </el-menu>
     <component :is="activeComponent"></component>
   </div>
