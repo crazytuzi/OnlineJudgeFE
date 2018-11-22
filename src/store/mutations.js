@@ -5,15 +5,16 @@ import {getShopCarts} from '../api/api'
 //全局引入vue
 import Vue from 'vue';
 import Axios from 'axios';
-Vue.prototype.$http = Axios
+Vue.prototype.$http = Axios;
 
 
 export default {
     [types.SET_INFO] (state) {
         state.userInfo = {
+            id:cookie.getCookie('id'),
             name:cookie.getCookie('name'),
             token:cookie.getCookie('token')
-        }
+        };
         console.log(state.userInfo);
     },
     [types.SET_SHOPLIST] (state) { //设置购物车数据

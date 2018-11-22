@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 
-let host = 'http://127.0.0.1:8000/api';
+let host = 'http://192.168.0.129:8000/api';
 
 //获取题目列表
 export const getProblems = params => { return axios.get(`${host}/problems/`,{ params: params  })};
@@ -9,6 +9,14 @@ export const getProblems = params => { return axios.get(`${host}/problems/`,{ pa
 //获取题目信息
 export const getProblemDetail = problemId => { return axios.get(`${host}/problems/${problemId}`+'/')};
 
+//获取提交列表
+export const getSubmissions = params => { return axios.get(`${host}/submissions/`,{ params: params  })};
+
+//获取提交信息
+export const getSubmissionDetail = params => { return axios.get(`${host}/submissions/${problemId}`+'/')};
+
+// 添加提交记录
+export const addSubmission = params => { return axios.post(`${host}/submissions/`,params)};
 
 
 //登录

@@ -7,22 +7,26 @@
         label="ID"
         width="180">
         <template slot-scope="scope" >
-          <span @click="columnClickHandler(scope.$index)">{{problems[scope.$index].problem_id}}</span>
+          <router-link tag='a' :to="'/app/problem/' + problems[scope.$index].id" >
+            {{problems[scope.$index].problem_id}}
+          </router-link>
         </template>
       </el-table-column>
       <el-table-column
         label="Title"
         width="180">
         <template slot-scope="scope" >
-          <span @click="columnClickHandler(scope.$index)">{{problems[scope.$index].title}}</span>
+          <router-link tag='a' :to="'/app/problem/' + problems[scope.$index].id" >
+            {{problems[scope.$index].title}}
+          </router-link>
         </template>
       </el-table-column>
       <el-table-column
         label="AC Rate"
         width="180">
-        <template slot-scope="scope">
-          <el-progress :percentage="calculateACRate(scope.$index)"></el-progress>
-        </template>
+        <!--<template slot-scope="scope">-->
+          <!--<el-progress :percentage="calculateACRate(scope.$index)"></el-progress>-->
+        <!--</template>-->
       </el-table-column>
       <el-table-column
         prop="submission_number"
@@ -78,13 +82,17 @@
           calculateACRate(index){
             return this.problems[index].accepted_number/this.problems[index].submission_number*100;
           },
-          columnClickHandler(column){
-            this.$router.push("/app/problem/"+this.problems[column].problem_id);
-          }
       },
     }
 </script>
 
 <style scoped>
-
+  a:link {
+    text-decoration: none;
+    color: blue;
+  }
+  a:visited {
+    text-decoration: none;
+    color: blue;
+  }
 </style>

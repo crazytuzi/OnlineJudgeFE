@@ -28,13 +28,19 @@
         <!-- codemirror -->
         <codemirror v-model="code" :options="cmOption"></codemirror>
       </div>
+      <div>
+        <el-button type="primary"
+        @click="submitHandle">主要按钮
+        </el-button>
+      </div>
     </div>
 </template>
 
 <script>
     import 'codemirror/theme/solarized.css'
     import 'codemirror/mode/clike/clike.js'
-    import {getProblemDetail} from "../../api/api";
+    import {getProblemDetail,addSubmission} from "../../api/api"
+    import cookie from '../../static/js/cookie'
     export default {
         name: "Problem",
         data(){
@@ -74,6 +80,26 @@ int main()
               }).catch((function (error) {
                 console.log(error);
               }));
+            },
+            submitHandle(){
+              if (cookie.getCookie("id") != null && cookie.getCookie("name") != null
+                 && cookie.getCookie("token") != null)
+              {
+                addSubmission({
+                  user: cookie.getCookie("id"),
+                  problem:this.problem_id,
+                  code: this.code,
+                }).then((response)=> {
+                  console.log(response);
+                }).catch(function (error) {
+                  console.log(error);
+                });
+              }
+              else
+              {
+                console.log("你没有登陆");
+              }
+
             },
         },
     }

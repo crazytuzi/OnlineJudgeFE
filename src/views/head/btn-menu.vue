@@ -105,6 +105,8 @@
               }).then((res) => {
                 this.username = res.data[0].username;
                 cookie.setCookie('name', res.data[0].username, 7);
+                cookie.setCookie('id', response.data.id, 7);
+                cookie.setCookie('token', response.data.token, 7);
               }).catch((function (err) {
                 Message({
                   message: '找不到该用户',
@@ -121,6 +123,8 @@
               message: 'Login success',
               type: 'success'
             });
+            console.log('login',response.data);
+            cookie.setCookie('id', response.data.id, 7);
             cookie.setCookie('token', response.data.token, 7);
             that.$store.dispatch('setInfo');
           }).catch((function (error) {
@@ -134,6 +138,7 @@
         }
       },
       Register() {
+        let that = this;
         if (this.reg_username === "") {
           Message({
             message: '账号不能为空',
@@ -172,6 +177,10 @@
               "password": this.reg_password
             }
           ).then((response) => {
+            cookie.setCookie('name', this.reg_username, 7);
+            cookie.setCookie('id', response.data.id, 7);
+            cookie.setCookie('token', response.data.token, 7);
+            that.$store.dispatch('setInfo');
             this.RegisterFormVisible = false;
             this.isLogin = true;
             this.username = this.reg_username;
@@ -179,9 +188,6 @@
               message: 'Register success',
               type: 'success'
             });
-            cookie.setCookie('name', this.reg_username, 7);
-            cookie.setCookie('token', response.data.token, 7);
-            that.$store.dispatch('setInfo');
           }).catch((function (error) {
             if ("username" in error) {
               Message({
@@ -200,6 +206,7 @@
       commandHandler(command) {
         if (command == 'LogOff') {
           this.isLogin = false;
+          cookie.delCookie('id');
           cookie.delCookie('token');
           cookie.delCookie('name');
           this.$store.dispatch('setInfo');
@@ -214,11 +221,12 @@
     },
     created() {
       this.$store.dispatch('setInfo');
-      if (cookie.getCookie("name") != null && cookie.getCookie("token") != null) {
+      if (cookie.getCookie("id") != null && cookie.getCookie("name") != null && cookie.getCookie("token") != null) {
         this.isLogin = true;
         this.username = cookie.getCookie("name");
       }
       else {
+        cookie.delCookie('id');
         cookie.delCookie('token');
         cookie.delCookie('name');
         this.$store.dispatch('setInfo');
