@@ -105,7 +105,7 @@
               }).then((res) => {
                 this.username = res.data[0].username;
                 cookie.setCookie('name', res.data[0].username, 7);
-                cookie.setCookie('id', response.data.id, 7);
+                cookie.setCookie('id', res.data[0].id, 7);
                 cookie.setCookie('token', response.data.token, 7);
               }).catch((function (err) {
                 Message({
@@ -116,17 +116,22 @@
             } else {
               this.username = this.login_username;
               cookie.setCookie('name', this.login_username, 7);
+              getUser({
+                'username': this.username,
+              }).then((res2) => {
+                cookie.setCookie('id', res2.data[0].id, 7);
+              }).catch((function (err) {
+
+              }));
             }
+            cookie.setCookie('token', response.data.token, 7);
+            that.$store.dispatch('setInfo');
             this.LoginFormVisible = false;
             this.isLogin = true;
             Message({
               message: 'Login success',
               type: 'success'
             });
-            console.log('login',response.data);
-            cookie.setCookie('id', response.data.id, 7);
-            cookie.setCookie('token', response.data.token, 7);
-            that.$store.dispatch('setInfo');
           }).catch((function (error) {
             if ("non_field_errors" in error) {
               Message({

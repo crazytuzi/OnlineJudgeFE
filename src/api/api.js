@@ -13,7 +13,7 @@ export const getProblemDetail = problemId => { return axios.get(`${host}/problem
 export const getSubmissions = params => { return axios.get(`${host}/submissions/`,{ params: params  })};
 
 //获取提交信息
-export const getSubmissionDetail = params => { return axios.get(`${host}/submissions/${problemId}`+'/')};
+export const getSubmissionDetail = submissionId => { return axios.get(`${host}/submissions/${submissionId}`+'/')};
 
 // 添加提交记录
 export const addSubmission = params => { return axios.post(`${host}/submissions/`,params)};
