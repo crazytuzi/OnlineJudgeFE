@@ -78,7 +78,6 @@
               let data = response.data;
               this.submissions = data.results;
               this.total = data.count;
-              console.log(data);
             }).catch(function (error) {
               console.log(error);
             });

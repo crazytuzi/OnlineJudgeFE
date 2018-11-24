@@ -11,12 +11,9 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/api':{
-        target:'http://127.0.0.1:8000/api',
-        changeOrigin:true,
-        pathRewrite:{
-          '/api':''
-        }
+      '/api': {
+        target: 'http://127.0.0.1:8000/api/',//设置你调用的接口域名和端口号 别忘了加http
+        changeOrigin: true,
       }
     },
 
@@ -41,7 +38,7 @@ module.exports = {
     // https://vue-loader.vuejs.org/en/options.html#cachebusting
     cacheBusting: true,
 
-    cssSourceMap: true
+    cssSourceMap: false
   },
 
   build: {
