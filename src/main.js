@@ -29,6 +29,7 @@ import store from './store/store';
 import './axios/';
 import Axios from 'axios';
 Vue.prototype.$http = Axios;
+Vue.prototype.HOST = '/api'
 
 
 //引入需要渲染的视图组件

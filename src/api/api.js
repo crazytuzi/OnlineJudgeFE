@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 
-let host = 'http://127.0.0.1:8000/api';
+let host = this.HOST;
 
 //获取题目列表
 export const getProblems = params => { return axios.get(`${host}/problems/`,{ params: params  })};
