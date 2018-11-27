@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-menu :default-active="defaultIndex" class="el-menu-demo" mode="horizontal" @select="horselectHandler">
+    <el-menu :default-active="defaultIndex" class="el-menu-demo" mode="horizontal" @select="selectItems">
       <el-menu-item v-for = "(menu,index) in hormenuList" :index="menu.index" :key="index"><i :class="menu.icon"></i>{{menu.name}}</el-menu-item>
       <BtnMenu></BtnMenu>
     </el-menu>
@@ -44,13 +44,23 @@
             link: "/app/rank",
           }
         ],
-        defaultIndex: '1',
+        defaultIndex: 1,
       };
     },
     methods: {
       horselectHandler(key, keyPath) {
         this.$router.push(this.hormenuList[key-1].link);
+      },
+      getNavType(){
+        this.defaultIndex=this.$store.state.topnavigation;
+      },
+      selectItems(index){
+        this.$store.state.topnavigation=index;
+        this.$router.push(this.hormenuList[index-1].link);
       }
+    },
+    watch: {
+        '$store.state.topnavigation': 'getNavType'
     }
   }
 </script>

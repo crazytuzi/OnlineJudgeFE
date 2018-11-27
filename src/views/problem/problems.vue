@@ -24,9 +24,9 @@
       <el-table-column
         label="AC Rate"
         width="180">
-        <!--<template slot-scope="scope">-->
-          <!--<el-progress :percentage="calculateACRate(scope.$index)"></el-progress>-->
-        <!--</template>-->
+        <template slot-scope="scope">
+          <el-progress :percentage="calculateACRate(scope.$index)"></el-progress>
+        </template>
       </el-table-column>
       <el-table-column
         prop="submission_number"
@@ -80,7 +80,9 @@
             });
           },
           calculateACRate(index){
-            return this.problems[index].accepted_number/this.problems[index].submission_number*100;
+            if(this.problems[index].submission_number == 0)
+              return 0;
+            return parseInt(this.problems[index].accepted_number/this.problems[index].submission_number*100);
           },
       },
     }

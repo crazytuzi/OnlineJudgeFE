@@ -23,6 +23,7 @@ const goods_list =  {
 
     }
 const state = {
+    topnavigation:"/",
     userInfo,
     goods_list
 }

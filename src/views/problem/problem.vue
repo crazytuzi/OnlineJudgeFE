@@ -10,7 +10,7 @@
         Memory Limit:{{problem.memory_limit}}
       </div>
       <div>
-        Description:{{problem.description}}}
+        Description:{{problem.description}}
       </div>
       <div>
         Input:{{problem.input_description}}
@@ -47,9 +47,9 @@
           const code = `#include <stdio.h>
 int main()
 {
-    int a.b;
-    scanf("%d %d",&a,&b);
-    printf("%d\\r\\n",a+b);
+    int a,b;
+    scanf("%d%d",&a,&b);
+    printf("%d",a+b);
     return 0;
 }`;
           return {
@@ -90,7 +90,8 @@ int main()
                   problem:this.problem_id,
                   code: this.code,
                 }).then((response)=> {
-                  console.log(response);
+                  this.$store.state.topnavigation='3';
+                  this.$router.push("/app/status");
                 }).catch(function (error) {
                   console.log(error);
                 });
