@@ -44,13 +44,10 @@
             link: "/app/rank",
           }
         ],
-        defaultIndex: 1,
+        defaultIndex: '1',
       };
     },
     methods: {
-      horselectHandler(key, keyPath) {
-        this.$router.push(this.hormenuList[key-1].link);
-      },
       getNavType(){
         this.defaultIndex=this.$store.state.topnavigation;
       },

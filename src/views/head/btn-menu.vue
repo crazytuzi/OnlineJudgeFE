@@ -216,6 +216,7 @@
           cookie.delCookie('name');
           this.$store.dispatch('setInfo');
         } else if (command == 'Profile') {
+          this.$store.state.topnavigation='1';
           this.$router.push('/app/profile');
         }
       },

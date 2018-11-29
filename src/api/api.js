@@ -18,6 +18,12 @@ export const getSubmissionDetail = submissionId => { return axios.get(`${host}/s
 // 添加提交记录
 export const addSubmission = params => { return axios.post(`${host}/submissions/`,params)};
 
+//获取Accept列表
+export const getAcceptedProblems = params => { return axios.get(`${host}/useracceptedproblems/`,{ params: params  })};
+
+//获取Challenge列表
+export const getChallengingProblems = params => { return axios.get(`${host}/userchallengingproblems/`,{ params: params  })};
+
 
 //登录
 export const login = params => {
