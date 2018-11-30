@@ -24,6 +24,11 @@ export const getAcceptedProblems = params => { return axios.get(`${host}/useracc
 //获取Challenge列表
 export const getChallengingProblems = params => { return axios.get(`${host}/userchallengingproblems/`,{ params: params  })};
 
+//获取比赛列表
+export const getContests = params => { return axios.get(`${host}/contests/`,{ params: params  })};
+
+//获取比赛信息
+export const getContestDetail = contestId => { return axios.get(`${host}/contests/${contestId}`+'/')};
 
 //登录
 export const login = params => {
