@@ -70,7 +70,7 @@
           },
           currentChangeHandler(e){
             getProblems({
-              "page":e
+              page: e
               }).then((response)=> {
               let data = response.data;
               this.problems = data.results;

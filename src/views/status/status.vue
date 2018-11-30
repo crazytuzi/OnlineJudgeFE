@@ -84,7 +84,7 @@
           },
           currentChangeHandler(e){
             getSubmissions({
-              "page":e
+              page: e
             }).then((response)=> {
               let data = response.data;
               this.submissions = data.results;

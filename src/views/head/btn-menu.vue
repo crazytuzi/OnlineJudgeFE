@@ -95,13 +95,13 @@
         } else {
           login(
             {
-              "username": this.login_username,
-              "password": this.login_password
+              username: this.login_username,
+              password: this.login_password
             }
           ).then((response) => {
             if (this.checkEmail(this.login_username)) {
               getUser({
-                "email": this.login_username,
+                email: this.login_username,
               }).then((res) => {
                 this.username = res.data[0].username;
                 cookie.setCookie('name', res.data[0].username, 7);
@@ -117,7 +117,7 @@
               this.username = this.login_username;
               cookie.setCookie('name', this.login_username, 7);
               getUser({
-                'username': this.username,
+                username: this.username,
               }).then((res2) => {
                 cookie.setCookie('id', res2.data[0].id, 7);
               }).catch((function (err) {
@@ -177,9 +177,9 @@
         } else {
           register(
             {
-              "username": this.reg_username,
-              "email": this.reg_email,
-              "password": this.reg_password
+              username: this.reg_username,
+              email: this.reg_email,
+              password: this.reg_password
             }
           ).then((response) => {
             cookie.setCookie('name', this.reg_username, 7);

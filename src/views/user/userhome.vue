@@ -5,19 +5,29 @@
         SubCount{{submitCount}}
         ChallengeCount{{challengeCount}}
       </div>
+      <div>
+        List of accepted problems
+        <el-button type="success" v-for="problem in acceptList">{{problem.problem}}</el-button>
+      </div>
+      <div>
+        List of challenging problems
+        <el-button type="success" v-for="problem in challengeList">{{problem.problem}}</el-button>
+      </div>
     </div>
 </template>
 
 <script>
   import cookie from '../../static/js/cookie'
   import {getSubmissions,getAcceptedProblems,getChallengingProblems} from '../../api/api'
-    export default {
+  export default {
       data() {
         return {
           username: cookie.getCookie("name"),
           acceptCount: 0,
+          acceptList: [],
           submitCount: 0,
           challengeCount: 0,
+          challengeList: [],
         };
       },
       created(){
@@ -32,7 +42,8 @@
             iscontest: 2,
           }).then((response)=> {
             let data = response.data;
-            this.acceptCount = data.count;
+            this.acceptList = data;
+            this.acceptCount = data.length;
           }).catch(function (error) {
             console.log(error);
           });
@@ -53,7 +64,8 @@
             user: cookie.getCookie('id'),
           }).then((response)=> {
             let data = response.data;
-            this.challengeCount = data.count;
+            this.challengeList = data;
+            this.challengeCount = data.length;
           }).catch(function (error) {
             console.log(error);
           });
