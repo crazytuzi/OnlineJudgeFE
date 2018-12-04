@@ -60,7 +60,9 @@
       },
       methods: {
           getProblem() {
-            getProblems().then((response)=> {
+            getProblems({
+              iscontest: 2,
+            }).then((response)=> {
               let data = response.data;
               this.problems = data.results;
               this.total = data.count;
@@ -70,6 +72,7 @@
           },
           currentChangeHandler(e){
             getProblems({
+              iscontest: 2,
               page: e
               }).then((response)=> {
               let data = response.data;
