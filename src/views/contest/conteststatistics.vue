@@ -1,14 +1,14 @@
 <template>
   <div>
     <el-table
-      :data="contests"
+      :data="problems"
       style="width: 100%">
       <el-table-column
         label="ID"
         width="180">
         <template slot-scope="scope" >
-          <router-link tag='a' :to="'/app/contest/' + contests[scope.$index].id" >
-            {{contests[scope.$index].id}}
+          <router-link tag='a' :to="'/app/problem/' + problems[scope.$index].id" >
+            {{problems[scope.$index].parent_problem}}
           </router-link>
         </template>
       </el-table-column>
@@ -16,34 +16,35 @@
         label="Title"
         width="180">
         <template slot-scope="scope" >
-          <router-link tag='a' :to="'/app/contest/' + contests[scope.$index].id" >
-            {{contests[scope.$index].title}}
+          <router-link tag='a' :to="'/app/problem/' + problems[scope.$index].id" >
+            {{problems[scope.$index].title}}
           </router-link>
         </template>
       </el-table-column>
       <el-table-column
-        prop="start_time"
-        label="Start Time"
+        prop="submission_number"
+        label="Total"
         width="180">
       </el-table-column>
       <el-table-column
-        prop="end_time"
-        label="End Time"
+        prop="accepted_number"
+        label="AC"
         width="180">
       </el-table-column>
       <el-table-column
-        label="State"
+        prop="wrong_answer_number"
+        label="WA"
         width="180">
-        <template slot-scope="scope" >
-            {{contests[scope.$index].state}}
-        </template>
       </el-table-column>
       <el-table-column
-        label="Creator"
+        prop="time_limit_number"
+        label="TLE"
         width="180">
-        <template slot-scope="scope" >
-          {{contests[scope.$index].creator}}
-        </template>
+      </el-table-column>
+      <el-table-column
+        prop="memory_limit_number"
+        label="MLE"
+        width="180">
       </el-table-column>
     </el-table>
     <el-pagination background layout="prev, pager, next"
@@ -57,43 +58,47 @@
 </template>
 
 <script>
-  import {getContests} from "../../api/api";
-
-  export default {
-        name: "Contests",
+    import {getProblems} from '../../api/api'
+    export default {
+        name: "conteststatistics",
         data() {
           return {
-            contests: [],
+            contest: 1,
+            problems: [],
             pageSize: 3,
-            total: 10000,
+            total: 1000,
           };
         },
         created(){
-            this.getContest();
+          this.contest_id = this.$route.params.contest_id;
+          this.getProblem();
         },
         methods: {
-          getContest() {
-            getContests().then((response)=> {
+          getProblem() {
+            getProblems({
+              contest: this.contest_id
+            }).then((response)=> {
               let data = response.data;
-              this.contests = data.results;
+              this.problems = data.results;
               this.total = data.count;
             }).catch(function (error) {
               console.log(error);
             });
           },
           currentChangeHandler(e){
-            getContests({
+            getProblems({
+              contest: this.contest_id,
               page: e
             }).then((response)=> {
               let data = response.data;
-              this.contests = data.results;
+              this.problems = data.results;
               this.total = data.count;
             }).catch(function (error) {
               console.log(error);
             });
           },
         },
-  }
+    }
 </script>
 
 <style scoped>

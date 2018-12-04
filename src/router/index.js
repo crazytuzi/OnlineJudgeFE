@@ -34,6 +34,7 @@ import NavMenu from '../views/head/nav-menu'
 import footer from '../views/footer/footer'
 import problem from '../views/problem/problem'
 import profile from '../views/user/profile'
+import contest from '../views/contest/contest'
 
 
 //配置路由
@@ -115,6 +116,19 @@ let router = new Router({
           },
           meta: {
             title: "Problem",
+            need_log: false
+          },
+        },
+        {
+          path: 'contest/:contest_id',
+          name: 'contest',
+          components: {
+            'v-header': NavMenu,
+            'v-content': contest,
+            'v-footer': footer
+          },
+          meta: {
+            title: "Contest",
             need_log: false
           },
         },

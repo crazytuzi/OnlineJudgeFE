@@ -118,8 +118,8 @@
               cookie.setCookie('name', this.login_username, 7);
               getUser({
                 username: this.username,
-              }).then((res2) => {
-                cookie.setCookie('id', res2.data[0].id, 7);
+              }).then((res) => {
+                cookie.setCookie('id', res.data[0].id, 7);
               }).catch((function (err) {
 
               }));

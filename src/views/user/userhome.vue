@@ -7,11 +7,11 @@
       </div>
       <div>
         List of accepted problems
-        <el-button type="success" v-for="problem in acceptList">{{problem.problem}}</el-button>
+        <el-button type="success" v-for="problem in acceptList" :key="problem.problem">{{problem.problem}}</el-button>
       </div>
       <div>
         List of challenging problems
-        <el-button type="success" v-for="problem in challengeList">{{problem.problem}}</el-button>
+        <el-button type="success" v-for="problem in challengeList" :key="problem.problem">{{problem.problem}}</el-button>
       </div>
     </div>
 </template>
