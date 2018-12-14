@@ -30,6 +30,10 @@ export const getContests = params => { return axios.get(`${host}/contests/`,{ pa
 //获取比赛信息
 export const getContestDetail = contestId => { return axios.get(`${host}/contests/${contestId}`+'/')};
 
+//获取排名列表
+export const getRanks = params => { return axios.get(`${host}/userprofile/`,{ params: params  })};
+
+
 //登录
 export const login = params => {
   return axios.post(`${host}/login/`, params)
