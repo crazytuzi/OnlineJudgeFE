@@ -216,7 +216,7 @@
           cookie.delCookie('name');
           this.$store.dispatch('setInfo');
         } else if (command == 'Profile') {
-          this.$store.state.topnavigation='1';
+          this.$store.state.topnavigation = '1';
           this.$router.push('/app/profile');
         }
       },
@@ -227,11 +227,11 @@
     },
     created() {
       this.$store.dispatch('setInfo');
-      if (cookie.getCookie("id") != null && cookie.getCookie("name") != null && cookie.getCookie("token") != null) {
+      let userInfo = this.$store.state.userInfo;
+      if (userInfo['id'] != null && userInfo['name'] != null && userInfo['token'] != null) {
         this.isLogin = true;
-        this.username = cookie.getCookie("name");
-      }
-      else {
+        this.username = userInfo['id'];
+      } else {
         cookie.delCookie('id');
         cookie.delCookie('token');
         cookie.delCookie('name');

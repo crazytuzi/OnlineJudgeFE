@@ -38,7 +38,6 @@
 </template>
 
 <script>
-  import cookie from '../../static/js/cookie'
   import {getProblems,getAcceptedProblems} from "../../api/api";
 
   export default {
@@ -71,7 +70,7 @@
           },
           getAcceptedProblem() {
             getAcceptedProblems({
-              user: cookie.getCookie('id'),
+              user: this.$store.state.userInfo['id'],
               problem__contest: this.contest_id
             }).then((response)=> {
               let data = response.data;

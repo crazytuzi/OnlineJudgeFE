@@ -12,7 +12,6 @@
 
 <script>
   import {getContestDetail} from "../../api/api"
-  import cookie from '../../static/js/cookie'
   import contestproblems from "@/views/contest/contestproblems"
   import contestsubmissions from "@/views/contest/contestsubmissions"
   import contestrank from "@/views/contest/contestrank"

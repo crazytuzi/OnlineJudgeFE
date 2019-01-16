@@ -13,41 +13,24 @@ Vue.use(Vuex);
 import cookie from '../static/js/cookie';
 
 const userInfo = {
-            id:cookie.getCookie('id')||'',
-            name:cookie.getCookie('name')||'',
-            token:cookie.getCookie('token')||''
+            id:cookie.getCookie('id') || null,
+            name:cookie.getCookie('name') || null,
+            token:cookie.getCookie('token') || null
         };
-const goods_list =  {
-       totalPrice:'',
-        goods_list:[]
-
-    }
+const userProblems = cookie.getCookie('problems') || null;
+const userCollections = cookie.getCookie('collections') || null;
 const state = {
     topnavigation:"/",
     userInfo,
-    goods_list
-}
+    userProblems,
+    userCollections,
+};
 export default new Vuex.Store({
 	state,
 	mutations,
 	actions,
 	getters
 });
-
-
-// const store = new Vuex.Store({
-//   state: {
-//     authority:''
-//   },
-//   mutations: {
-//     setAuthority(){
-//         state.authority = JSON.parse(cookie.getCookie('authority')); 
-//     }
-
-//   }
-// })
-
-// export default store;
 
 
 

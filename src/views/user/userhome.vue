@@ -17,12 +17,11 @@
 </template>
 
 <script>
-  import cookie from '../../static/js/cookie'
   import {getSubmissions,getAcceptedProblems,getChallengingProblems} from '../../api/api'
   export default {
       data() {
         return {
-          username: cookie.getCookie("name"),
+          username: this.$store.state.userInfo['name'],
           acceptCount: 0,
           acceptList: [],
           submitCount: 0,
@@ -38,7 +37,7 @@
       methods: {
         getAcceptedProblem() {
           getAcceptedProblems({
-            user: cookie.getCookie('id'),
+            user: this.$store.state.userInfo['id'],
             iscontest: 2,
           }).then((response)=> {
             let data = response.data;
@@ -50,7 +49,7 @@
         },
         getSubmission() {
           getSubmissions({
-            user: cookie.getCookie('id'),
+            user: this.$store.state.userInfo['id'],
             iscontest: 2,
           }).then((response)=> {
             let data = response.data;
@@ -61,7 +60,7 @@
         },
         getChallengingProblem() {
           getChallengingProblems({
-            user: cookie.getCookie('id'),
+            user: this.$store.state.userInfo['id'],
           }).then((response)=> {
             let data = response.data;
             this.challengeList = data;

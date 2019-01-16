@@ -40,7 +40,6 @@
     import 'codemirror/theme/solarized.css'
     import 'codemirror/mode/clike/clike.js'
     import {getProblemDetail,addSubmission} from "../../api/api"
-    import cookie from '../../static/js/cookie'
     export default {
         name: "Problem",
         data(){
@@ -82,11 +81,12 @@ int main()
               }));
             },
             submitHandle(){
-              if (cookie.getCookie("id") != null && cookie.getCookie("name") != null
-                 && cookie.getCookie("token") != null)
+              let userInfo = this.$store.state.userInfo;
+              if (userInfo['id'] != null && userInfo['name'] != null
+                 && userInfo['token'] != null)
               {
                 addSubmission({
-                  user: cookie.getCookie("id"),
+                  user: userInfo['id'],
                   problem:this.problem_id,
                   code: this.code,
                 }).then((response)=> {
@@ -100,7 +100,6 @@ int main()
               {
                 console.log("你没有登陆");
               }
-
             },
         },
     }

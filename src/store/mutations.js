@@ -15,7 +15,12 @@ export default {
             name:cookie.getCookie('name'),
             token:cookie.getCookie('token')
         };
-        console.log(state.userInfo);
+    },
+    [types.SET_PROBLEMS] (state) {
+      state.userProblems = cookie.getCookie('problems');
+    },
+    [types.SET_COLLECTIONS] (state) {
+      state.userCollections = cookie.getCookie('collections');
     },
     [types.SET_SHOPLIST] (state) { //设置购物车数据
         // token = cookie.getCookie('token')
