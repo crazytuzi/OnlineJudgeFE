@@ -17,12 +17,14 @@ const userInfo = {
             name:cookie.getCookie('name') || null,
             token:cookie.getCookie('token') || null
         };
-const userProblems = cookie.getCookie('problems') || null;
-const userCollections = cookie.getCookie('collections') || null;
+const userAcceptedProblems = localStorage.getItem('acceptedproblems') || null;
+const userChallengingProblems = localStorage.getItem('challengingproblems') || null;
+const userCollections = localStorage.getItem('collections') || null;
 const state = {
     topnavigation:"/",
     userInfo,
-    userProblems,
+    userAcceptedProblems,
+    userChallengingProblems,
     userCollections,
 };
 export default new Vuex.Store({

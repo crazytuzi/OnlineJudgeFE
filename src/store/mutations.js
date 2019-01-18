@@ -16,11 +16,14 @@ export default {
             token:cookie.getCookie('token')
         };
     },
-    [types.SET_PROBLEMS] (state) {
-      state.userProblems = cookie.getCookie('problems');
+    [types.SET_ACCEPTEDPROBLEMS] (state) {
+      state.userAcceptedProblems = JSON.parse(localStorage.getItem('acceptedproblems'));
+    },
+    [types.SET_CHALLENGINGPROBLEMS] (state) {
+      state.userChallengingProblems = JSON.parse(localStorage.getItem('challengingproblems'));
     },
     [types.SET_COLLECTIONS] (state) {
-      state.userCollections = cookie.getCookie('collections');
+      state.userCollections = JSON.parse(localStorage.getItem('collections'));
     },
     [types.SET_SHOPLIST] (state) { //设置购物车数据
         // token = cookie.getCookie('token')

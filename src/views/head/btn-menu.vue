@@ -58,7 +58,7 @@
 </template>
 
 <script>
-  import {login, register, getUser} from '../../api/api'
+  import {login, register, getUser,getAcceptedProblems,getChallengingProblems} from '../../api/api'
   import {Message} from 'element-ui'
   import cookie from '../../static/js/cookie'
 
@@ -99,6 +99,7 @@
               password: this.login_password
             }
           ).then((response) => {
+            cookie.setCookie('token', response.data.token, 7);
             if (this.checkEmail(this.login_username)) {
               getUser({
                 email: this.login_username,
@@ -106,7 +107,10 @@
                 this.username = res.data[0].username;
                 cookie.setCookie('name', res.data[0].username, 7);
                 cookie.setCookie('id', res.data[0].id, 7);
-                cookie.setCookie('token', response.data.token, 7);
+                this.$store.dispatch('setInfo');
+                this.getAcceptedProblem();
+                this.getChallengingProblem();
+                this.getCollection();
               }).catch((function (err) {
                 Message({
                   message: '找不到该用户',
@@ -120,12 +124,14 @@
                 username: this.username,
               }).then((res) => {
                 cookie.setCookie('id', res.data[0].id, 7);
+                this.$store.dispatch('setInfo');
+                //解决异步问题,这里和上面不写在一起
+                this.getAcceptedProblem();
+                this.getChallengingProblem();
+                this.getCollection();
               }).catch((function (err) {
-
               }));
             }
-            cookie.setCookie('token', response.data.token, 7);
-            that.$store.dispatch('setInfo');
             this.LoginFormVisible = false;
             this.isLogin = true;
             Message({
@@ -189,6 +195,12 @@
             this.RegisterFormVisible = false;
             this.isLogin = true;
             this.username = this.reg_username;
+            localStorage.setItem('acceptedproblems',null);
+            localStorage.setItem('challengingproblems',null);
+            localStorage.setItem('collections',null);
+            that.$store.dispatch('setAcceptedProblems');
+            that.$store.dispatch('setChallengingProblems');
+            that.$store.dispatch('setCollections');
             Message({
               message: 'Register success',
               type: 'success'
@@ -211,10 +223,7 @@
       commandHandler(command) {
         if (command == 'LogOff') {
           this.isLogin = false;
-          cookie.delCookie('id');
-          cookie.delCookie('token');
-          cookie.delCookie('name');
-          this.$store.dispatch('setInfo');
+          this.delStores();
         } else if (command == 'Profile') {
           this.$store.state.topnavigation = '1';
           this.$router.push('/app/profile');
@@ -224,18 +233,56 @@
         let reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
         return reg.test(emailAddress);
       },
+      delStores(){
+        cookie.delCookie('id');
+        cookie.delCookie('token');
+        cookie.delCookie('name');
+        localStorage.removeItem('acceptedproblems');
+        localStorage.removeItem('challengingproblems');
+        localStorage.removeItem('collections');
+        this.$store.dispatch('setInfo');
+        this.$store.dispatch('setAcceptedProblems');
+        this.$store.dispatch('setChallengingProblems');
+        this.$store.dispatch('setCollections');
+      },
+      getAcceptedProblem() {
+        getAcceptedProblems({
+          user: this.$store.state.userInfo['id'],
+          iscontest: 2,
+        }).then((response)=> {
+          let data = response.data;
+          localStorage.setItem('acceptedproblems',JSON.stringify(data));
+          this.$store.dispatch('setAcceptedProblems');
+        }).catch(function (error) {
+          console.log(error);
+        });
+      },
+      getChallengingProblem() {
+        getChallengingProblems({
+          user: this.$store.state.userInfo['id'],
+        }).then((response)=> {
+          let data = response.data;
+          localStorage.setItem('challengingproblems',JSON.stringify(data));
+          this.$store.dispatch('setChallengingProblems');
+        }).catch(function (error) {
+          console.log(error);
+        });
+      },
+      getCollection(){
+
+      },
     },
     created() {
       this.$store.dispatch('setInfo');
       let userInfo = this.$store.state.userInfo;
       if (userInfo['id'] != null && userInfo['name'] != null && userInfo['token'] != null) {
+        this.getAcceptedProblem();
+        this.getChallengingProblem();
+        this.getCollection();
         this.isLogin = true;
         this.username = userInfo['id'];
       } else {
-        cookie.delCookie('id');
-        cookie.delCookie('token');
-        cookie.delCookie('name');
-        this.$store.dispatch('setInfo');
+        this.delStores();
       }
     }
   }

@@ -17,36 +17,19 @@
 </template>
 
 <script>
-  import {getSubmissions,getAcceptedProblems,getChallengingProblems} from '../../api/api'
+  import {getSubmissions} from '../../api/api'
   export default {
       data() {
         return {
           username: this.$store.state.userInfo['name'],
-          acceptCount: 0,
-          acceptList: [],
+          acceptCount: this.$store.state.userAcceptedProblems.length,
+          acceptList: this.$store.state.userAcceptedProblems,
           submitCount: 0,
-          challengeCount: 0,
-          challengeList: [],
+          challengeCount: this.$store.state.userChallengingProblems.length,
+          challengeList: this.$store.state.userChallengingProblems,
         };
       },
-      created(){
-          this.getSubmission();
-          this.getAcceptedProblem();
-          this.getChallengingProblem();
-      },
-      methods: {
-        getAcceptedProblem() {
-          getAcceptedProblems({
-            user: this.$store.state.userInfo['id'],
-            iscontest: 2,
-          }).then((response)=> {
-            let data = response.data;
-            this.acceptList = data;
-            this.acceptCount = data.length;
-          }).catch(function (error) {
-            console.log(error);
-          });
-        },
+      methods:{
         getSubmission() {
           getSubmissions({
             user: this.$store.state.userInfo['id'],
@@ -58,19 +41,11 @@
             console.log(error);
           });
         },
-        getChallengingProblem() {
-          getChallengingProblems({
-            user: this.$store.state.userInfo['id'],
-          }).then((response)=> {
-            let data = response.data;
-            this.challengeList = data;
-            this.challengeCount = data.length;
-          }).catch(function (error) {
-            console.log(error);
-          });
-        },
       },
-    }
+      created() {
+          this.getSubmission();
+      }
+  }
 </script>
 
 <style scoped>
