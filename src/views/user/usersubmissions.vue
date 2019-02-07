@@ -54,7 +54,6 @@
 
 <script>
     import {getSubmissions} from "../../api/api";
-    import cookie from '../../static/js/cookie';
     export default {
       data(){
         return {
@@ -69,7 +68,7 @@
       methods: {
         getSubmission() {
           getSubmissions({
-            user: cookie.getCookie('id'),
+            user: this.$store.state.userInfo['id'],
             iscontest: 2
           }).then((response)=> {
             let data = response.data;
@@ -81,7 +80,7 @@
         },
         currentChangeHandler(e){
           getSubmissions({
-            user: cookie.getCookie('id'),
+            user: this.$store.state.userInfo['id'],
             iscontest: 2,
             page: e
           }).then((response)=> {
