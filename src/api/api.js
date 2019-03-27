@@ -24,6 +24,12 @@ export const getAcceptedProblems = params => { return axios.get(`${host}/useracc
 //获取Challenge列表
 export const getChallengingProblems = params => { return axios.get(`${host}/userchallengingproblems/`,{ params: params  })};
 
+//获取收藏列表
+export const getCollections = params => { return axios.get(`${host}/usercollect/`,{ params: params  })};
+
+// 添加收藏
+export const addCollection = params => { return axios.post(`${host}/usercollect/`,params)};
+
 //获取比赛列表
 export const getContests = params => { return axios.get(`${host}/contests/`,{ params: params  })};
 

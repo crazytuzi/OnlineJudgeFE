@@ -30,7 +30,16 @@
       </div>
       <div>
         <el-button type="primary"
-        @click="submitHandle">主要按钮
+        @click="submitHandle">提交代码
+        </el-button>
+      </div>
+      <div v-if="problem.parent_problem===null&&this.$store.state.userInfo['id']!==null
+        &&this.$store.state.userInfo['name']!==null&&this.$store.state.userInfo['token']!==null">
+        <el-button type="primary" v-if="isCollect"
+                   @click="collectHandle">取消收藏
+        </el-button>
+        <el-button type="primary" v-else
+                   @click="collectHandle">收藏题目
         </el-button>
       </div>
     </div>
@@ -39,7 +48,7 @@
 <script>
     import 'codemirror/theme/solarized.css'
     import 'codemirror/mode/clike/clike.js'
-    import {getProblemDetail,addSubmission} from "../../api/api"
+    import {getProblemDetail,addSubmission,addCollection} from "../../api/api"
     export default {
         name: "Problem",
         data(){
@@ -55,6 +64,7 @@ int main()
             code,
             problem_id: '',
             problem: {},
+            isCollect: false,
             cmOption: {
               width: '50%',
               tabSize: 4,
@@ -76,31 +86,65 @@ int main()
                 this.problem_id
               ).then((response)=>{
                 this.problem = response.data;
+                let userInfo = this.$store.state.userInfo;
+                if (userInfo['id'] != null && userInfo['name'] != null
+                  && userInfo['token'] != null&&this.$store.state.userCollections!=null)
+                {
+                  this.isCollect = this.$store.state.userCollections.hasOwnProperty(this.problem.id);
+                }
               }).catch((function (error) {
                 console.log(error);
               }));
             },
             submitHandle(){
-              let userInfo = this.$store.state.userInfo;
-              if (userInfo['id'] != null && userInfo['name'] != null
-                 && userInfo['token'] != null)
-              {
-                addSubmission({
+            let userInfo = this.$store.state.userInfo;
+            if (userInfo['id'] != null && userInfo['name'] != null
+              && userInfo['token'] != null)
+            {
+              addSubmission({
+                user: userInfo['id'],
+                problem:this.problem_id,
+                code: this.code,
+              }).then((response)=> {
+                this.$store.state.topnavigation='3';
+                this.$router.push("/app/status");
+              }).catch(function (error) {
+                console.log(error);
+              });
+            }
+            else
+            {
+              console.log("你没有登陆");
+            }
+          },
+          collectHandle(){
+            let userInfo = this.$store.state.userInfo;
+            if (userInfo['id'] != null && userInfo['name'] != null
+              && userInfo['token'] != null)
+            {
+              if (this.isCollect){
+              } else{
+                addCollection({
                   user: userInfo['id'],
                   problem:this.problem_id,
-                  code: this.code,
                 }).then((response)=> {
-                  this.$store.state.topnavigation='3';
-                  this.$router.push("/app/status");
+                  let data = response.data;
+                  if (this.$store.state.userCollections==null){
+                    this.$store.state.userCollections={};
+                  }
+                  this.$store.state.userCollections[this.problem.id] = data['create_time'];
+                  this.$store.dispatch('setCollections');
+                  this.isCollect = true;
                 }).catch(function (error) {
                   console.log(error);
                 });
               }
-              else
-              {
-                console.log("你没有登陆");
-              }
-            },
+            }
+            else
+            {
+              console.log("你没有登陆");
+            }
+          },
         },
     }
 </script>
