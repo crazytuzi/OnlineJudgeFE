@@ -30,6 +30,9 @@ export const getCollections = params => { return axios.get(`${host}/usercollect/
 // 添加收藏
 export const addCollection = params => { return axios.post(`${host}/usercollect/`,params)};
 
+//取消收藏
+export const delCollection = collectionId => {return axios.delete(`${host}/usercollect/`+collectionId+'/')};
+
 //获取比赛列表
 export const getContests = params => { return axios.get(`${host}/contests/`,{ params: params  })};
 

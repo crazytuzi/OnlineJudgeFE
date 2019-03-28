@@ -48,7 +48,7 @@
 <script>
     import 'codemirror/theme/solarized.css'
     import 'codemirror/mode/clike/clike.js'
-    import {getProblemDetail,addSubmission,addCollection} from "../../api/api"
+    import {getProblemDetail, addSubmission, addCollection, getCollections, delCollection} from "../../api/api"
     export default {
         name: "Problem",
         data(){
@@ -90,7 +90,7 @@ int main()
                 if (userInfo['id'] != null && userInfo['name'] != null
                   && userInfo['token'] != null&&this.$store.state.userCollections!=null)
                 {
-                  this.isCollect = this.$store.state.userCollections.hasOwnProperty(this.problem.id);
+                  this.isCollect = this.$store.state.userCollections.hasOwnProperty(this.problem_id);
                 }
               }).catch((function (error) {
                 console.log(error);
@@ -123,6 +123,26 @@ int main()
               && userInfo['token'] != null)
             {
               if (this.isCollect){
+                getCollections({
+                  user: this.$store.state.userInfo['id'],
+                  problem: this.problem.id
+                }).then((response)=> {
+                  let data = response.data;
+                  if (data.count>0){
+                    let collectionId = data.results[0]['id'];
+                    delCollection(
+                      collectionId
+                    ).then((response)=>{
+                      delete this.$store.state.userCollections[this.problem_id];
+                      this.$store.dispatch('setCollections');
+                      this.isCollect = false;
+                    }).catch(function (error) {
+                      console.log(error);
+                    });
+                  }
+                }).catch(function (error) {
+                  console.log(error);
+                });
               } else{
                 addCollection({
                   user: userInfo['id'],
