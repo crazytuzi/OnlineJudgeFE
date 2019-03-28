@@ -133,9 +133,11 @@ int main()
                     delCollection(
                       collectionId
                     ).then((response)=>{
-                      delete this.$store.state.userCollections[this.problem_id];
-                      this.$store.dispatch('setCollections');
-                      this.isCollect = false;
+                      if (response.status === 200){
+                        delete this.$store.state.userCollections[this.problem_id];
+                        this.$store.dispatch('setCollections');
+                        this.isCollect = false;
+                      }
                     }).catch(function (error) {
                       console.log(error);
                     });
