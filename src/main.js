@@ -16,7 +16,7 @@ Vue.use(VueCodemirror);
 //全局引入共用css
 // import './styles/common.scss';
 //引入字体样式
-// import './styles/fonts/iconfont.css';
+import './static/css/iconfont..css'
 //全局引入路由配置
 import router from './router';
 
