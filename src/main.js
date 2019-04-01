@@ -14,7 +14,7 @@ import 'codemirror/lib/codemirror.css'
 Vue.use(ElementUI);
 Vue.use(VueCodemirror);
 //全局引入共用css
-// import './styles/common.scss';
+import './static/css/common.css'
 //引入字体样式
 import './static/css/iconfont..css'
 //全局引入路由配置

@@ -29,6 +29,16 @@
         <codemirror v-model="code" :options="cmOption"></codemirror>
       </div>
       <div>
+        <el-select v-model="language" placeholder="gcc">
+          <el-option
+            v-for="item in Languages"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
+      </div>
+      <div>
         <el-button type="primary"
         @click="submitHandle">提交代码
         </el-button>
@@ -46,6 +56,12 @@
     import 'codemirror/theme/solarized.css'
     import 'codemirror/mode/clike/clike.js'
     import {getProblemDetail, addSubmission, addCollection, getCollections, delCollection} from "../../api/api"
+    let Languages={
+      'gcc' : 0,
+      'g++' : 1,
+      'Python' : 2,
+      'Java' : 3
+    };
     export default {
         name: "Problem",
         data(){
@@ -69,8 +85,23 @@ int main()
               lineNumbers: true,
               line: true,
               mode: 'text/x-csrc',
-              theme: 'solarized light'
-            }
+              theme: 'solarized light',
+
+            },
+            Languages: [{
+              value: Languages.gcc,
+              label: 'gcc'
+            }, {
+              value: Languages["g++"],
+              label: 'g++'
+            }, {
+              value: Languages.Python,
+              label: 'Python'
+            }, {
+              value: Languages.Java,
+              label: 'Java'
+            }],
+            language: Languages.gcc
           };
         },
         created(){
@@ -101,6 +132,7 @@ int main()
               addSubmission({
                 user: userInfo['id'],
                 problem:this.problem_id,
+                language:this.language,
                 code: this.code,
               }).then((response)=> {
                 this.$store.state.topnavigation='3';

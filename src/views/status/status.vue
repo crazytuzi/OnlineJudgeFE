@@ -15,7 +15,7 @@
             <el-col :span="4"><div>
               <el-select v-model="language" placeholder="Language">
                 <el-option
-                  v-for="item in languages"
+                  v-for="item in Languages"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value">
@@ -96,11 +96,17 @@
           >
           </el-table-column>
           <el-table-column
-            prop="submit_time"
             label="Language"
             width="180"
             align="center"
           >
+            <template slot-scope="scope">
+              <router-link tag='a' :to="'/app/submission/' + submissions[scope.$index].id" v-if="
+              that.$store.state.userInfo['id']==submissions[scope.$index].user || that.$store.state.userInfo['isSuperUser']=='true'">
+                {{languageCodeToStr[submissions[scope.$index].language]}}
+              </router-link>
+              <template v-else>{{languageCodeToStr[submissions[scope.$index].language]}}</template>
+            </template>
           </el-table-column>
           <el-table-column
             prop="submit_time"
@@ -123,6 +129,8 @@
 
 <script>
   import {getSubmissions} from '../../api/api'
+  import 'codemirror/theme/solarized.css'
+  import 'codemirror/mode/clike/clike.js'
   let Status={
       PENDING : 0,
       ACCEPTED : 1,
@@ -142,11 +150,22 @@
       NO_ANSWERS : 15,
       RUN_SUCCESSFULLY : 16
     };
+    let Languages={
+      'gcc' : 0,
+      'g++' : 1,
+      'Python' : 2,
+      'Java' : 3
+    };
+    let languageCodeToStr=[
+      'gcc',
+      'g++',
+      'Python',
+      'Java'
+    ];
     export default {
         name: "Status",
         data(){
           return {
-
             results: [{
               value: '',
               label: 'Result'
@@ -184,27 +203,32 @@
               value: Status.SYSTEM_ERROR,
               label: 'System Error'
             }],
-            languages: [{
-              value: 'C',
-              label: 'C'
+            Languages: [{
+              value: '',
+              label: 'Language'
+            },{
+              value: Languages.gcc,
+              label: 'gcc'
             }, {
-              value: 'C++',
-              label: 'C++'
+              value: Languages["g++"],
+              label: 'g++'
             }, {
-              value: 'Java',
-              label: 'Java'
-            }, {
-              value: 'Python',
+              value: Languages.Python,
               label: 'Python'
+            }, {
+              value: Languages.Java,
+              label: 'Java'
             }],
             result: '',
-            language: 'C++',
+            language: '',
             username: '',
             problemId: '',
             submissions: [],
             pageSize: 5,
             total: 1000,
-            Status: Status
+            Status: Status,
+            languageCodeToStr: languageCodeToStr,
+            that: this
           };
         },
         created(){
@@ -225,7 +249,8 @@
               page: e,
               problem: this.problemId,
               user__username: this.username,
-              result: this.result
+              result: this.result,
+              language: this.language
             }).then((response)=> {
               let data = response.data;
               this.submissions = data.results;
@@ -239,7 +264,8 @@
             getSubmissions({
               problem: this.problemId,
               user__username: this.username,
-              result: this.result
+              result: this.result,
+              language: this.language
             }).then((response)=> {
               let data = response.data;
               this.submissions = data.results;

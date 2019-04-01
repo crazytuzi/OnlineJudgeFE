@@ -92,12 +92,4 @@
 </script>
 
 <style scoped>
-  a:link {
-    text-decoration: none;
-    color: blue;
-  }
-  a:visited {
-    text-decoration: none;
-    color: blue;
-  }
 </style>

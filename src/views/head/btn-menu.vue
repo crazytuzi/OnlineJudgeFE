@@ -107,6 +107,7 @@
                 this.username = res.data[0].username;
                 cookie.setCookie('name', res.data[0].username, 7);
                 cookie.setCookie('id', res.data[0].id, 7);
+                cookie.setCookie('isSuperUser', res.data[0].isSuperUser, 7);
                 this.$store.dispatch('setInfo');
                 this.getAcceptedProblem();
                 this.getChallengingProblem();
@@ -124,6 +125,7 @@
                 username: this.username,
               }).then((res) => {
                 cookie.setCookie('id', res.data[0].id, 7);
+                cookie.setCookie('isSuperUser', res.data[0].isSuperUser, 7);
                 this.$store.dispatch('setInfo');
                 //解决异步问题,这里和上面不写在一起
                 this.getAcceptedProblem();
@@ -237,6 +239,7 @@
         cookie.delCookie('id');
         cookie.delCookie('token');
         cookie.delCookie('name');
+        cookie.delCookie('isSuperUser');
         localStorage.removeItem('acceptedproblems');
         localStorage.removeItem('challengingproblems');
         localStorage.removeItem('collections');
