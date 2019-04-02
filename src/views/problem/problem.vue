@@ -45,7 +45,6 @@
       </div>
       <div v-if="problem.parent_problem===null&&this.$store.state.userInfo['id']!==null
         &&this.$store.state.userInfo['name']!==null&&this.$store.state.userInfo['token']!==null">
-
         <el-button type="primary" icon="el-icon-oj-aixin_shixin" circle v-if="isCollect" @click="collectHandle"></el-button>
         <el-button type="primary" icon="el-icon-oj-aixin" circle v-else @click="collectHandle"></el-button>
       </div>
