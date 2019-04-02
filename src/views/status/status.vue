@@ -240,6 +240,7 @@
               let data = response.data;
               this.submissions = data.results;
               this.total = data.count;
+              this.updateStore(data.results);
             }).catch(function (error) {
               console.log(error);
             });
@@ -255,6 +256,7 @@
               let data = response.data;
               this.submissions = data.results;
               this.total = data.count;
+              this.updateStore(data.results);
             }).catch(function (error) {
               console.log(error);
             });
@@ -270,11 +272,36 @@
               let data = response.data;
               this.submissions = data.results;
               this.total = data.count;
+              this.updateStore(data.results);
             }).catch(function (error) {
               console.log(error);
               that.submissions = [];
               that.total = 0;
             });
+          },
+          updateStore(submissions){
+            let userInfo = this.$store.state.userInfo;
+            if (userInfo['id'] != null && userInfo['name'] != null && userInfo['token'] != null) {
+              for( let submission of submissions){
+                if (submission['user'] == userInfo['id']){
+                  if (submission['result'] == this.Status.ACCEPTED){
+                    if (this.$store.state.userAcceptedProblems!==null&&!this.$store.state.userAcceptedProblems.hasOwnProperty(submission.problem)) {
+                      this.$store.state.userAcceptedProblems[submission['problem']] = submission['submit_time'];
+                      localStorage.setItem('acceptedproblems',JSON.stringify(acceptedproblems));
+                      this.$store.dispatch('setAcceptedProblems');
+                    }
+                  }else{
+                    if (this.$store.state.userAcceptedProblems!==null&&!this.$store.state.userAcceptedProblems.hasOwnProperty(submission.problem)){
+                      if(this.$store.state.userChallengingProblems!==null&&!this.$store.state.userChallengingProblems.hasOwnProperty(submission.problem)){
+                        this.$store.state.userChallengingProblems[submission['problem']] = submission['submit_time'];
+                        localStorage.setItem('challengingproblems',JSON.stringify(challengingproblems));
+                        this.$store.dispatch('setChallengingProblems');
+                      }
+                    }
+                  }
+                }
+              }
+            }
           },
         },
     }
