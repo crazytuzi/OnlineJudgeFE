@@ -73,7 +73,7 @@
 </template>
 
 <script>
-    import {getSubmissions} from '../../api/api'
+    import {getSubmissionDetail} from '../../api/api'
     let Status={
       PENDING : 0,
       ACCEPTED : 1,
@@ -124,17 +124,18 @@
       },
       methods: {
         getSubmission() {
-          getSubmissions({
-            id: this.submission_id
-          }).then((response)=> {
+          getSubmissionDetail(
+            this.submission_id
+          ).then((response)=> {
             let data = response.data;
-            this.submissions = data.results;
-            if (this.$store.state.userInfo['id']!=this.submissions[0].user && this.$store.state.userInfo['isSuperUser']!='true') {
-              console.log("你没有权限查看");
-              this.code = '';
-            }else{
-              this.code = this.submissions[0].code;
-            }
+              this.submissions = [];
+              this.submissions.push(data);
+              if (this.$store.state.userInfo['id']!=data.user && this.$store.state.userInfo['isSuperUser']!='true') {
+                console.log("你没有权限查看");
+                this.code = '';
+              }else{
+                this.code = data.code;
+              }
           }).catch(function (error) {
             console.log(error);
           });
