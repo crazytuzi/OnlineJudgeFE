@@ -26,7 +26,10 @@
     <div>
       <el-table
         :data="contests"
-        style="width: 100%">
+        style="width: 100%"
+        row-style="height:55px"
+        cell-style="padding:0"
+       >
         <el-table-column
           label="ID"
           width="75"
@@ -101,7 +104,7 @@
         data() {
           return {
             contests: [],
-            pageSize: 3,
+            pageSize: 5,
             total: 10000,
             states: [{
               value: '',

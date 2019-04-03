@@ -36,7 +36,10 @@
       <div>
         <el-table
           :data="submissions"
-          style="width: 100%">
+          style="width: 100%"
+          row-style="height:55px"
+          cell-style="padding:0"
+        >
           <el-table-column
             prop="id"
             label="ID"
