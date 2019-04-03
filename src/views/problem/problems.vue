@@ -80,7 +80,7 @@
         data(){
           return {
             problems: [],
-            pageSize: 3,
+            pageSize: 5,
             total: 1000,
             title: '',
             problemId: '',
