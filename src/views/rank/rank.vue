@@ -13,7 +13,10 @@
     <div>
       <el-table
         :data="ranks"
-        style="width: 100%">
+        style="width: 100%"
+        :row-style="{height: '55px'}"
+        :cell-style="{padding: '0'}"
+        >
         <el-table-column
           label="Rank"
           width="200"
@@ -110,7 +113,15 @@
             return parseInt(this.ranks[index].accepted_num/this.ranks[index].submission_num*100);
           },
           searchHandle(){
-
+            getRanks({
+              username: this.username
+            }).then((response)=> {
+              let data = response.data;
+              this.ranks = data.results;
+              this.total = data.count;
+            }).catch(function (error) {
+              console.log(error);
+            });
           },
         },
   }

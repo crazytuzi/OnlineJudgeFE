@@ -27,8 +27,8 @@
       <el-table
         :data="contests"
         style="width: 100%"
-        row-style="height:55px"
-        cell-style="padding:0"
+        :row-style="{height: '55px'}"
+        :cell-style="{padding: '0'}"
        >
         <el-table-column
           label="ID"
