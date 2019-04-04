@@ -114,7 +114,7 @@
           },
           searchHandle(){
             getRanks({
-              username: this.username
+              user__username: this.username
             }).then((response)=> {
               let data = response.data;
               this.ranks = data.results;
