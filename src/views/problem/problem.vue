@@ -64,9 +64,9 @@
         </el-col>
         <el-col :span="4">
           <div>
-            <el-progress type="circle" :percentage="100" status="success" width="43" v-if="that.$store.state.userAcceptedProblems!==null&&that.$store.state.userAcceptedProblems.hasOwnProperty(problem_id)"></el-progress>
-            <el-progress type="circle" :percentage="50" status="exception" width="43" v-else-if="that.$store.state.userChallengingProblems!==null&&that.$store.state.userChallengingProblems.hasOwnProperty(problem_id)"></el-progress>
-            <el-progress type="circle" :percentage="0" width="43" :show-text="false" v-else></el-progress>
+            <el-progress type="circle" :percentage="100" status="success" :width="43" v-if="that.$store.state.userAcceptedProblems!==null&&that.$store.state.userAcceptedProblems.hasOwnProperty(problem_id)"></el-progress>
+            <el-progress type="circle" :percentage="50" status="exception" :width="43" v-else-if="that.$store.state.userChallengingProblems!==null&&that.$store.state.userChallengingProblems.hasOwnProperty(problem_id)"></el-progress>
+            <el-progress type="circle" :percentage="0" :width="43" :show-text="false" v-else></el-progress>
           </div>
           <div>
             <div v-if="problem.parent_problem===null&&this.$store.state.userInfo['id']!==null

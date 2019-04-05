@@ -18,12 +18,10 @@
         :cell-style="{padding: '0'}"
         >
         <el-table-column
+          prop="ranking"
           label="Rank"
           width="200"
           align="center">
-          <template slot-scope="scope" >
-            {{(curPage-1)*pageSize+scope.$index+1}}
-          </template>
         </el-table-column>
         <el-table-column
           prop="avatar"
