@@ -253,8 +253,4 @@ int main()
 </script>
 
 <style scoped>
-.font{
-  font-size: 20px;
-  color: #3091f2;
-}
 </style>
