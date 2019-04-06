@@ -36,6 +36,9 @@ export const delCollection = collectionId => {return axios.delete(`${host}/userc
 //获取比赛列表
 export const getContests = params => { return axios.get(`${host}/contests/`,{ params: params  })};
 
+//获取比赛排名列表
+export const getContestRankList = params => { return axios.get(`${host}/contestrank/`,{ params: params  })};
+
 //获取比赛信息
 export const getContestDetail = contestId => { return axios.get(`${host}/contests/${contestId}`+'/')};
 

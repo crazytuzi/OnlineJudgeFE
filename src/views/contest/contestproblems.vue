@@ -47,8 +47,7 @@
 </template>
 
 <script>
-  import {getProblems,getAcceptedProblems} from "../../api/api";
-
+  import {getProblems} from "../../api/api";
   export default {
         name: "contestproblems",
         data() {
