@@ -230,7 +230,6 @@
           total: 1000,
           Status: Status,
           languageCodeToStr: languageCodeToStr,
-          columnWidth:[],
           that: this
         };
       },

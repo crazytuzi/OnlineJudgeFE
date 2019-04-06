@@ -3,11 +3,12 @@
     <el-table
       :data="problems"
       style="width: 100%"
-      :row-style="{height: '45px'}"
+      :row-style="{height: '40px'}"
       :cell-style="{padding: '0'}">
       <el-table-column
         label="ID"
-        width="180">
+        width="100"
+        align="center">
         <template slot-scope="scope" >
           <router-link tag='a' :to="'/app/problem/' + problems[scope.$index].id" >
             {{problems[scope.$index].parent_problem}}
@@ -16,7 +17,8 @@
       </el-table-column>
       <el-table-column
         label="Title"
-        width="180">
+        width="150"
+        align="center">
         <template slot-scope="scope" >
           <router-link tag='a' :to="'/app/problem/' + problems[scope.$index].id" >
             {{problems[scope.$index].title}}
@@ -26,27 +28,32 @@
       <el-table-column
         prop="submission_number"
         label="Total"
-        width="180">
+        width="150"
+        align="center">
       </el-table-column>
       <el-table-column
         prop="accepted_number"
         label="AC"
-        width="180">
+        width="150"
+        align="center">
       </el-table-column>
       <el-table-column
         prop="wrong_answer_number"
         label="WA"
-        width="180">
+        width="150"
+        align="center">
       </el-table-column>
       <el-table-column
         prop="time_limit_number"
         label="TLE"
-        width="180">
+        width="150"
+        align="center">
       </el-table-column>
       <el-table-column
         prop="memory_limit_number"
         label="MLE"
-        width="180">
+        width="150"
+        align="center">
       </el-table-column>
     </el-table>
     <el-pagination background layout="prev, pager, next"
