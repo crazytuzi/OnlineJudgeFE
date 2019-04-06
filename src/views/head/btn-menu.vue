@@ -58,7 +58,7 @@
 </template>
 
 <script>
-  import {login, register, getUser,getAcceptedProblems,getChallengingProblems} from '../../api/api'
+  import {login, register, getUser,getAcceptedProblems,getChallengingProblems,getCollections} from '../../api/api'
   import {Message} from 'element-ui'
   import cookie from '../../static/js/cookie'
 
@@ -107,6 +107,7 @@
                 this.username = res.data[0].username;
                 cookie.setCookie('name', res.data[0].username, 7);
                 cookie.setCookie('id', res.data[0].id, 7);
+                cookie.setCookie('isSuperUser', res.data[0].isSuperUser, 7);
                 this.$store.dispatch('setInfo');
                 this.getAcceptedProblem();
                 this.getChallengingProblem();
@@ -124,6 +125,7 @@
                 username: this.username,
               }).then((res) => {
                 cookie.setCookie('id', res.data[0].id, 7);
+                cookie.setCookie('isSuperUser', res.data[0].isSuperUser, 7);
                 this.$store.dispatch('setInfo');
                 //解决异步问题,这里和上面不写在一起
                 this.getAcceptedProblem();
@@ -237,6 +239,7 @@
         cookie.delCookie('id');
         cookie.delCookie('token');
         cookie.delCookie('name');
+        cookie.delCookie('isSuperUser');
         localStorage.removeItem('acceptedproblems');
         localStorage.removeItem('challengingproblems');
         localStorage.removeItem('collections');
@@ -251,7 +254,11 @@
           iscontest: 2,
         }).then((response)=> {
           let data = response.data;
-          localStorage.setItem('acceptedproblems',JSON.stringify(data));
+          let acceptedproblems = {};
+          for( let acceptedproblem of data){
+            acceptedproblems[acceptedproblem['problem']] = acceptedproblem['create_time'];
+          }
+          localStorage.setItem('acceptedproblems',JSON.stringify(acceptedproblems));
           this.$store.dispatch('setAcceptedProblems');
         }).catch(function (error) {
           console.log(error);
@@ -262,14 +269,30 @@
           user: this.$store.state.userInfo['id'],
         }).then((response)=> {
           let data = response.data;
-          localStorage.setItem('challengingproblems',JSON.stringify(data));
+          let challengingproblems = {};
+          for( let challengingproblem of data){
+            challengingproblems[challengingproblem['problem']] = challengingproblem['create_time'];
+          }
+          localStorage.setItem('challengingproblems',JSON.stringify(challengingproblems));
           this.$store.dispatch('setChallengingProblems');
         }).catch(function (error) {
           console.log(error);
         });
       },
       getCollection(){
-
+        getCollections({
+          user: this.$store.state.userInfo['id'],
+        }).then((response)=> {
+          let data = response.data;
+          let collections = {};
+          for( let collection of data.results){
+            collections[collection['problem']] = collection['create_time'];
+          }
+          localStorage.setItem('collections',JSON.stringify(collections));
+          this.$store.dispatch('setCollections');
+        }).catch(function (error) {
+          console.log(error);
+        });
       },
     },
     created() {

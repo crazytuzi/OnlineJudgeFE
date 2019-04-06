@@ -13,7 +13,8 @@ export default {
         state.userInfo = {
             id:cookie.getCookie('id'),
             name:cookie.getCookie('name'),
-            token:cookie.getCookie('token')
+            token:cookie.getCookie('token'),
+            isSuperUser:cookie.getCookie('isSuperUser')
         };
     },
     [types.SET_ACCEPTEDPROBLEMS] (state) {

@@ -28,6 +28,7 @@ import store from '../store/store'
 import home from '../views/home/home'
 import problems from '../views/problem/problems'
 import status from '../views/status/status'
+import submission from '../views/status/submission'
 import contests from '../views/contest/contests'
 import rank from '../views/rank/rank'
 import NavMenu from '../views/head/nav-menu'
@@ -80,6 +81,18 @@ let router = new Router({
           meta: {
             title: "Status",
             need_log: false
+          },
+        },
+        {
+          path: 'submission/:submission_id',
+          components: {
+            'v-header': NavMenu,
+            'v-content': submission,
+            'v-footer': footer
+          },
+          meta: {
+            title: "Submission",
+            need_log: true
           },
         },
         {

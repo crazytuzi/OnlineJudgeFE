@@ -24,8 +24,20 @@ export const getAcceptedProblems = params => { return axios.get(`${host}/useracc
 //获取Challenge列表
 export const getChallengingProblems = params => { return axios.get(`${host}/userchallengingproblems/`,{ params: params  })};
 
+//获取收藏列表
+export const getCollections = params => { return axios.get(`${host}/usercollect/`,{ params: params  })};
+
+// 添加收藏
+export const addCollection = params => { return axios.post(`${host}/usercollect/`,params)};
+
+//取消收藏
+export const delCollection = collectionId => {return axios.delete(`${host}/usercollect/`+collectionId+'/')};
+
 //获取比赛列表
 export const getContests = params => { return axios.get(`${host}/contests/`,{ params: params  })};
+
+//获取比赛排名列表
+export const getContestRankList = params => { return axios.get(`${host}/contestrank/`,{ params: params  })};
 
 //获取比赛信息
 export const getContestDetail = contestId => { return axios.get(`${host}/contests/${contestId}`+'/')};
