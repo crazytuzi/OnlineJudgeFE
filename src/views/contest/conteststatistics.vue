@@ -2,7 +2,9 @@
   <div>
     <el-table
       :data="problems"
-      style="width: 100%">
+      style="width: 100%"
+      :row-style="{height: '45px'}"
+      :cell-style="{padding: '0'}">
       <el-table-column
         label="ID"
         width="180">
