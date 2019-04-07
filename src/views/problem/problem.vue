@@ -251,13 +251,14 @@ int main()
                   problem: this.problem.id
                 }).then((response)=> {
                   let data = response.data;
-                  if (data.count>0){
-                    let collectionId = data.results[0]['id'];
+                  if (data.length>0){
+                    let collectionId = data[0]['id'];
                     delCollection(
                       collectionId
                     ).then((response)=>{
                       if (response.status === 200){
                         delete this.$store.state.userCollections[this.problem_id];
+                        localStorage.setItem('collections',JSON.stringify(this.$store.state.userCollections));
                         this.$store.dispatch('setCollections');
                         this.isCollect = false;
                       }
@@ -278,6 +279,7 @@ int main()
                     this.$store.state.userCollections={};
                   }
                   this.$store.state.userCollections[this.problem.id] = data['create_time'];
+                  localStorage.setItem('collections',JSON.stringify(this.$store.state.userCollections));
                   this.$store.dispatch('setCollections');
                   this.isCollect = true;
                 }).catch(function (error) {
