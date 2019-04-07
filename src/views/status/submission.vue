@@ -99,6 +99,12 @@
       'Python',
       'Java'
     ];
+    let Modes = [
+      'text/x-csrc',
+      'text/x-c++src',
+      'text/x-python',
+      'text/x-java',
+    ];
     export default {
         name: "Submission",
         data(){
@@ -135,6 +141,7 @@
                 this.code = '';
               }else{
                 this.code = data.code;
+                this.cmOption['mode'] = Modes[data.language];
               }
           }).catch(function (error) {
             console.log(error);

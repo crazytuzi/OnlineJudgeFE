@@ -42,7 +42,7 @@
               Language:
             </div>
             <div style="display:inline">
-              <el-select v-model="language" placeholder="gcc">
+              <el-select v-model="language" placeholder="gcc" @change="onlanguagechangeHandler">
                 <el-option
                   v-for="item in Languages"
                   :key="item.value"
@@ -55,7 +55,7 @@
               Theme:
             </div>
             <div style="display:inline">
-              <el-select v-model="theme" placeholder="gcc" @change="onchangeHandler">
+              <el-select v-model="theme" placeholder="gcc" @change="onthemechangeHandler">
                 <el-option
                   v-for="item in Themes"
                   :key="item.value"
@@ -121,6 +121,7 @@
     import 'codemirror/theme/solarized.css'
     import 'codemirror/theme/material.css'
     import 'codemirror/mode/clike/clike.js'
+    import 'codemirror/mode/python/python.js'
     import {getProblemDetail, addSubmission, addCollection, getCollections, delCollection} from "../../api/api"
     let Languages={
       'gcc' : 0,
@@ -137,6 +138,12 @@
       'solarized light',
       'solarized dark',
       'material',
+    ];
+    let Modes = [
+      'text/x-csrc',
+      'text/x-c++src',
+      'text/x-python',
+      'text/x-java',
     ];
     export default {
         name: "Problem",
@@ -179,13 +186,13 @@ int main()
             language: Languages.gcc,
             Themes: [{
               value: Themes["solarized light"],
-              label: 'solarized light'
+              label: 'Solarized light'
             }, {
               value: Themes["solarized dark"],
-              label: 'solarized dark'
+              label: 'Solarized dark'
             }, {
               value: Themes.material,
-              label: 'material'
+              label: 'Material'
             }],
             theme: Themes["solarized light"],
             that: this,
@@ -283,9 +290,12 @@ int main()
               console.log("你没有登陆");
             }
           },
-          onchangeHandler(e){
+          onthemechangeHandler(e){
               this.cmOption['theme'] = numToStr[e];
-          }
+          },
+          onlanguagechangeHandler(e){
+              this.cmOption['mode'] = Modes[e];
+          },
         },
     }
 </script>
