@@ -39,12 +39,25 @@
           </div>
           <div>
             <div style="display:inline">
-              Languages:
+              Language:
             </div>
             <div style="display:inline">
               <el-select v-model="language" placeholder="gcc">
                 <el-option
                   v-for="item in Languages"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
+            </div>
+            <div style="display:inline">
+              Theme:
+            </div>
+            <div style="display:inline">
+              <el-select v-model="theme" placeholder="gcc" @change="onchangeHandler">
+                <el-option
+                  v-for="item in Themes"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value">
@@ -106,6 +119,7 @@
 
 <script>
     import 'codemirror/theme/solarized.css'
+    import 'codemirror/theme/material.css'
     import 'codemirror/mode/clike/clike.js'
     import {getProblemDetail, addSubmission, addCollection, getCollections, delCollection} from "../../api/api"
     let Languages={
@@ -114,6 +128,16 @@
       'Python' : 2,
       'Java' : 3
     };
+    let Themes= {
+      'solarized light': 0,
+      'solarized dark': 1,
+      'material': 2,
+    };
+    let numToStr = [
+      'solarized light',
+      'solarized dark',
+      'material',
+    ];
     export default {
         name: "Problem",
         data(){
@@ -153,6 +177,17 @@ int main()
               label: 'Java'
             }],
             language: Languages.gcc,
+            Themes: [{
+              value: Themes["solarized light"],
+              label: 'solarized light'
+            }, {
+              value: Themes["solarized dark"],
+              label: 'solarized dark'
+            }, {
+              value: Themes.material,
+              label: 'material'
+            }],
+            theme: Themes["solarized light"],
             that: this,
           };
         },
@@ -248,6 +283,9 @@ int main()
               console.log("你没有登陆");
             }
           },
+          onchangeHandler(e){
+              this.cmOption['theme'] = numToStr[e];
+          }
         },
     }
 </script>
