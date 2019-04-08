@@ -1,6 +1,6 @@
 <template>
     <div style="min-height: 1000px">
-      <el-row :gutter="20">
+      <el-row :gutter="24">
         <el-col :span="16" :offset="1">
           <div>
             <div style="font-size: 25px">

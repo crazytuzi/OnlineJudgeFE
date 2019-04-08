@@ -43,7 +43,7 @@
         <el-table-column
           label="Title"
           width="500"
-          align="center">>
+          align="center">
           <template slot-scope="scope" >
             <router-link tag='a' :to="'/app/problem/' + problems[scope.$index].id" >
               {{problems[scope.$index].title}}

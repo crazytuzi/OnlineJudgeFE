@@ -4,17 +4,54 @@
       1
     </div>
     <div>
-      ACCount{{acceptedList.length}}
-      SubCount{{submissionCount}}
-      ChallengeCount{{challengingList.length}}
+      <el-row :gutter="24">
+        <el-col :span="4" :offset="4">
+          <div style="text-align: center">
+            Accepted
+          </div>
+          <div style="text-align: center">
+            {{acceptedList.length}}
+          </div>
+        </el-col>
+        <el-col :span="4" :offset="1">
+          <div style="text-align: center">
+            Challenging
+          </div>
+          <div style="text-align: center">
+            {{challengingList.length}}
+          </div>
+        </el-col>
+        <el-col :span="4" :offset="1">
+          <div style="text-align: center">
+            Submissions
+          </div>
+          <div style="text-align: center">
+            {{submissionCount}}
+          </div>
+        </el-col>
+      </el-row>
     </div>
     <div>
-      List of accepted problems
-      <el-button type="success" v-for="problem in acceptedList" :key="problem.problem">{{problem.problem}}</el-button>
-    </div>
-    <div>
-      List of challenging problems
-      <el-button type="success" v-for="problem in challengingList" :key="problem.problem">{{problem.problem}}</el-button>
+      <el-row :gutter="24">
+        <el-col :span="8" :offset="7">
+          <div style="text-align: center">
+            List of accepted problems
+          </div>
+          <div style="text-align: center">
+            <el-button type="primary" style="background-color: #5cb85c;border-color: #FFFFFF;" v-for="problem in acceptedList" :key="problem.problem" @click="clickHandler(problem.problem)">{{problem.problem}}</el-button>
+          </div>
+        </el-col>
+      </el-row>
+      <el-row :gutter="24">
+        <el-col :span="8" :offset="7">
+          <div style="text-align: center">
+            List of challenging problems
+          </div>
+          <div style="text-align: center">
+            <el-button type="primary" style="background-color: #d9534f;border-color: #FFFFFF" v-for="problem in challengingList" :key="problem.problem" @click="clickHandler(problem.problem)">{{problem.problem}}</el-button>
+          </div>
+        </el-col>
+      </el-row>
     </div>
   </div>
 </template>
@@ -64,6 +101,9 @@
           }).catch(function (error) {
             console.log(error);
           });
+        },
+        clickHandler(problem){
+          this.$router.push('/app/problem/' + problem);
         },
       },
       created() {
