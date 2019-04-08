@@ -60,6 +60,7 @@
     export default {
       data() {
         return {
+          allcollections: [],
           collections: [],
           that: this,
           pageSize: 5,
@@ -69,10 +70,11 @@
       },
       created() {
           this.colletctionsDictToArr();
+          this.getPageCollections();
       },
       methods:{
         colletctionsDictToArr(){
-          this.collections = [];
+          this.allcollections = [];
           let colletctionsDict = this.$store.state.userCollections;
           if (colletctionsDict !== null){
             for (let key in colletctionsDict){
@@ -80,18 +82,29 @@
                 problem: key,
                 create_time: colletctionsDict[key]
               };
-              this.collections.push(dict);
+              this.allcollections.push(dict);
             }
-            this.total = this.collections.length;
+            this.total = this.allcollections.length;
+          }
+        },
+        getPageCollections(){
+          if ((this.curPage-1) * this.pageSize + 1 > this.total){
+            this.curPage = Math.ceil(this.total/this.pageSize);
+            this.curPage = (this.curPage===0)?1:this.curPage;
+          }
+          this.collections = [];
+          for (let i=(this.curPage-1)*this.pageSize;i<this.curPage*this.pageSize && i<this.total;++i) {
+            this.collections.push(this.allcollections[i]);
           }
         },
         currentChangeHandler(e) {
           this.curPage = e;
+          this.getPageCollections();
         },
         deleteRow(index) {
           getCollections({
             user: this.$store.state.userInfo['id'],
-            problem: this.collections[(this.curPage-1)*this.pageSize+index].problem
+            problem: this.collections[index].problem
           }).then((response)=> {
             let data = response.data;
             if (data.length>0){
@@ -100,10 +113,12 @@
                 collectionId
               ).then((response)=>{
                 if (response.status === 200){
-                  delete this.$store.state.userCollections[this.collections[(this.curPage-1)*this.pageSize+index].problem];
+                  delete this.$store.state.userCollections[this.collections[index].problem];
                   localStorage.setItem('collections',JSON.stringify(this.$store.state.userCollections));
                   this.$store.dispatch('setCollections');
-                  this.collections.splice((this.curPage-1)*this.pageSize+index,1);
+                  this.allcollections.splice((this.curPage-1)*this.pageSize+index,1);
+                  this.total = this.allcollections.length;
+                  this.getPageCollections();
                 }
               }).catch(function (error) {
                 console.log(error);
