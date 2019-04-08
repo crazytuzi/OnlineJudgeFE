@@ -30,10 +30,14 @@
           align="center">
         </el-table-column>
         <el-table-column
-          prop="username"
           label="Username"
           width="200"
           align="center">
+          <template slot-scope="scope">
+            <router-link tag='a' :to="'/app/user/' + ranks[scope.$index].user">
+              {{ranks[scope.$index].username}}
+            </router-link>
+          </template>
         </el-table-column>
         <el-table-column
           prop="accepted_num"
@@ -50,7 +54,7 @@
         <el-table-column
           label="AC Rate"
           width="200"
-          align="center">>
+          align="center">
           <template slot-scope="scope">
             <el-progress :percentage="calculateACRate(scope.$index)"></el-progress>
           </template>

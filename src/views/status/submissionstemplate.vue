@@ -57,11 +57,15 @@
           </template>
         </el-table-column>
         <el-table-column
-          prop="username"
           label="Username"
           width="100"
           align="center"
         >
+          <template slot-scope="scope">
+            <router-link tag='a' :to="'/app/user/' + submissions[scope.$index].user">
+              {{submissions[scope.$index].username}}
+            </router-link>
+          </template>
         </el-table-column>
         <el-table-column
           prop="result"

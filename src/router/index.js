@@ -35,6 +35,7 @@ import NavMenu from '../views/head/nav-menu'
 import footer from '../views/footer/footer'
 import problem from '../views/problem/problem'
 import profile from '../views/user/profile'
+import userhometemplate from '../views/user/userhometemplate'
 import contest from '../views/contest/contest'
 
 
@@ -157,7 +158,20 @@ let router = new Router({
             title: "Profile",
             need_log: true
           },
-        }
+        },
+        {
+          path: 'user/:user_id',
+          name: 'userhome',
+          components: {
+            'v-header': NavMenu,
+            'v-content': userhometemplate,
+            'v-footer': footer
+          },
+          meta: {
+            title: "UserHome",
+            need_log: false
+          },
+        },
       ]
     }
   ]
