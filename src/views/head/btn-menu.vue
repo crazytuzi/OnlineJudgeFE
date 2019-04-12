@@ -285,7 +285,7 @@
         }).then((response)=> {
           let data = response.data;
           let collections = {};
-          for( let collection of data.results){
+          for( let collection of data){
             collections[collection['problem']] = collection['create_time'];
           }
           localStorage.setItem('collections',JSON.stringify(collections));

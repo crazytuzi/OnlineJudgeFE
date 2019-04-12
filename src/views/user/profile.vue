@@ -1,9 +1,15 @@
 <template>
   <div>
-    <el-menu :default-active="defaultIndex" class="el-menu-vertical-demo" mode="vertical" @select="verselectHandler">
-      <el-menu-item v-for = "(menu,index) in vermenuList" :index="menu.index" :key="index"><i :class="menu.icon"></i>{{menu.name}}</el-menu-item>
-    </el-menu>
-    <component :is="activeComponent"></component>
+    <el-row :gutter="24">
+      <el-col :span="4">
+        <el-menu :default-active="defaultIndex" class="el-menu-vertical-demo" mode="vertical" @select="verselectHandler">
+          <el-menu-item v-for = "(menu,index) in vermenuList" :index="menu.index" :key="index"><i :class="menu.icon"></i>{{menu.name}}</el-menu-item>
+        </el-menu>
+      </el-col>
+      <el-col :span="20">
+        <component :is="activeComponent"></component>
+      </el-col>
+    </el-row>
   </div>
 </template>
 

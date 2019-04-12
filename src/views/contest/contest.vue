@@ -57,7 +57,7 @@
         </el-menu>
       </el-col>
       <el-col :span="20">
-        <component :is="activeComponent"></component>
+        <component :is="activeComponent" v-bind:end_time="end_time"></component>
       </el-col>
     </el-row>
   </div>

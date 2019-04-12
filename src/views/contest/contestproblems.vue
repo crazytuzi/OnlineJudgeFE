@@ -11,7 +11,7 @@
         align="center">
         <template slot-scope="scope">
           <div v-if="that.$store.state.userInfo['id']!==null && that.$store.state.userInfo['name']!==null && that.$store.state.userInfo['token']!==null">
-            <i class="el-icon-check" v-if="that.$store.state.userAcceptedProblems!==null&&that.$store.state.userAcceptedProblems.hasOwnProperty(problems[scope.$index].id)"></i>
+            <i class="el-icon-check" v-if="isAccepted(scope.$index)"></i>
           </div>
         </template>
       </el-table-column>
@@ -50,6 +50,7 @@
   import {getProblems} from "../../api/api";
   export default {
         name: "contestproblems",
+        props: ["end_time"],
         data() {
           return {
             contest_id: 0,
@@ -87,6 +88,15 @@
               console.log(error);
             });
           },
+          isAccepted(index){
+            if (this.$store.state.userAcceptedProblems!==null && this.$store.state.userAcceptedProblems.hasOwnProperty(this.problems[index].id)) {
+              let accepted_time = new Date(this.$store.state.userAcceptedProblems[this.problems[index].id]);
+              if (accepted_time<this.end_time){
+                return true;
+              }
+            }
+            return false;
+          }
         },
   }
 </script>

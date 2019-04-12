@@ -14,10 +14,14 @@
         </template>
       </el-table-column>
       <el-table-column
-        prop="username"
         label="username"
         width="250"
         align="center">
+        <template slot-scope="scope">
+          <router-link tag='a' :to="'/app/user/' + contestranklist[scope.$index].user">
+            {{contestranklist[scope.$index].username}}
+          </router-link>
+        </template>
       </el-table-column>
       <el-table-column
         prop="accepted"
