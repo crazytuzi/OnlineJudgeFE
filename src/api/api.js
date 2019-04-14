@@ -60,6 +60,11 @@ export const getUser = params => {
   return axios.get(`${host}/users/`, { params: params })
 };
 
+//上传图像
+export const uploadAvatar = (userId, params) => {return axios.put(`${host}/userprofile/`+userId+'/', params,{
+  headers:{'Content-Type':'multipart/form-data'}
+})};
+
 //获取商品类别信息
 export const queryCategorygoods = params => { return axios.get(`${host}/indexgoods/`) }
 

@@ -24,10 +24,12 @@
           align="center">
         </el-table-column>
         <el-table-column
-          prop="avatar"
           label="Avatar"
           width="200"
           align="center">
+          <template slot-scope="scope">
+            <img :src="ranks[scope.$index].avatar" width="45" height="45"/>
+          </template>
         </el-table-column>
         <el-table-column
           label="Username"
