@@ -61,9 +61,13 @@ export const getUser = params => {
 };
 
 //上传头像
-export const uploadAvatar = (userId, params) => {return axios.put(`${host}/userprofile/`+userId+'/', params,{
+export const uploadAvatar = (userId, params) => {return axios.patch(`${host}/userprofile/`+userId+'/', params,{
   headers:{'Content-Type':'multipart/form-data'}
 })};
+
+//更新个人信息
+export const updateUserProfile = (userId, params) => {return axios.patch(`${host}/userprofile/`+userId+'/', params)};
+
 
 //获取商品类别信息
 export const queryCategorygoods = params => { return axios.get(`${host}/indexgoods/`) }

@@ -1,8 +1,7 @@
 <template>
 
   <div>
-    <div>
-      <div style="position:absolute;left: 900px;top: 10px;">
+      <div style="position:absolute;top: 10px;">
         <template v-if="isLogin == false">
           <el-button round
                      @click="LoginFormVisible = true"
@@ -48,11 +47,9 @@
             <el-button @click="RegisterFormVisible = false;LoginFormVisible = true">
               Already registed? Login now!
             </el-button>
-
           </div>
         </el-dialog>
       </div>
-    </div>
   </div>
 
 </template>
