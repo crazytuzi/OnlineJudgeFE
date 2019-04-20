@@ -174,11 +174,14 @@
                     </div>
                   </el-col>
                   <el-col :span="4" :offset="1">
-                    <el-button type="primary" size="mini">Details</el-button>
+                    <el-button type="primary" size="mini" @click="dialogTableVisible = true">Details</el-button>
                   </el-col>
                 </el-row>
               </div>
               <div id="chart"  :style="{width: '175px', height: '175px'}"></div>
+              <el-dialog :visible.sync="dialogTableVisible">
+                <completechart v-bind:completepie_option="completepie_option"></completechart>
+              </el-dialog>
             </div>
           </div>
         </el-col>
@@ -187,6 +190,7 @@
 </template>
 
 <script>
+    import completechart from './completechart'
     import 'codemirror/theme/solarized.css'
     import 'codemirror/theme/material.css'
     import 'codemirror/mode/clike/clike.js'
@@ -220,6 +224,7 @@
       'text/x-java',
     ];
     export default {
+        components: {completechart},
         name: "Problem",
         data(){
           const code = `#include <stdio.h>
@@ -269,6 +274,7 @@ int main()
               label: 'Material'
             }],
             theme: Themes["solarized light"],
+            dialogTableVisible: false,
             pie_option: {
               tooltip : {
                 trigger: 'item',
@@ -284,6 +290,56 @@ int main()
                   type:'pie',
                   radius : '75%',
                   center: ['45%', '45%'],
+                  data:[
+                    {value:0, name:'AC'},
+                    {value:0, name:'WA'},
+                  ],
+                  itemStyle: {
+                    normal: {
+                      shadowBlur: 5,
+                      shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                  },
+                  label: {
+                    normal: {
+                      show: true,
+                      position:'inner',
+                      formatter:'{d}%',
+                      textStyle: {
+                        color: '#123456'
+                      },
+                    },
+                    emphasis: {
+                      show: true
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    },
+                    emphasis: {
+                      show: true
+                    }
+                  },
+                  color:['#5cb85c', '#d9534f']
+                }
+              ]
+            },
+            completepie_option: {
+              tooltip : {
+                trigger: 'item',
+                formatter: "{b} : {c} ({d}%)"
+              },
+              legend:{
+                bottom: 0,
+                left: 'center',
+                data:['AC','WA']
+              },
+              series : [
+                {
+                  type:'pie',
+                  radius : '75%',
+                  center: ['50%', '50%'],
                   data:[
                     {value:0, name:'AC'},
                     {value:0, name:'WA'},
@@ -336,7 +392,11 @@ int main()
                   {value:this.problem.accepted_number, name:'AC'},
                   {value:this.problem.submission_number-this.problem.accepted_number, name:'WA'},
                 ];
-                this.drawPie('chart',this.pie_option);
+                this.completepie_option.series[0].data = [
+                  {value:this.problem.accepted_number, name:'AC'},
+                  {value:this.problem.submission_number-this.problem.accepted_number, name:'WA'},
+                ];
+                this.drawPie();
                 let userInfo = this.$store.state.userInfo;
                 if (userInfo['id'] != null && userInfo['name'] != null
                   && userInfo['token'] != null&&this.$store.state.userCollections!=null)
@@ -427,10 +487,10 @@ int main()
           onlanguagechangeHandler(e){
               this.cmOption['mode'] = Modes[e];
           },
-          drawPie(id,option) {
-            let chart = echarts.init(document.getElementById(id));
-            chart.setOption(option);
-          }
+          drawPie() {
+            let chart = echarts.init(document.getElementById('chart'));
+            chart.setOption(this.pie_option);
+          },
         },
     }
 </script>
