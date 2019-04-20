@@ -71,7 +71,7 @@
           </div>
           <div>
             <el-button type="primary"
-                       @click="submitHandle">提交代码
+                       @click="submitHandle">submit
             </el-button>
           </div>
         </el-col>
@@ -94,19 +94,74 @@
             </div>
             <div>
               <div>
-                ID:{{problem_id}}
+              <el-row>
+                <el-col :span="15">
+                  <div>
+                    ID:
+                  </div>
+                </el-col>
+                <el-col :span="4" :offset="2">
+                  <div style="text-align: right">
+                  {{problem_id}}
+                  </div>
+                </el-col>
+              </el-row>
               </div>
               <div>
-                Time Limit:{{problem.time_limit}}
+              <el-row>
+                <el-col :span="15">
+                  <div>
+                    Time Limit:
+                  </div>
+                </el-col>
+                <el-col :span="4" :offset="1">
+                  <div style="text-align: right">
+                    {{problem.time_limit}}
+                  </div>
+                </el-col>
+              </el-row>
+            </div>
+              <div>
+                <el-row>
+                  <el-col :span="15">
+                    <div>
+                      Memory Limit
+                    </div>
+                  </el-col>
+                  <el-col :span="4" :offset="2">
+                    <div style="text-align: right">
+                      {{problem.memory_limit}}
+                    </div>
+                  </el-col>
+                </el-row>
               </div>
               <div>
-                Memory Limit:{{problem.memory_limit}}
+                <el-row>
+                  <el-col :span="15">
+                    <div>
+                      Accepted:
+                    </div>
+                  </el-col>
+                  <el-col :span="4" :offset="2">
+                    <div style="text-align: right">
+                      {{problem.accepted_number}}
+                    </div>
+                  </el-col>
+                </el-row>
               </div>
               <div>
-                Accepted:{{problem.accepted_number}}
-              </div>
-              <div>
-                Submission:{{problem.submission_number}}
+                <el-row>
+                  <el-col :span="15">
+                    <div>
+                      Submission:
+                    </div>
+                  </el-col>
+                  <el-col :span="4" :offset="2">
+                    <div style="text-align: right">
+                      {{problem.submission_number}}
+                    </div>
+                  </el-col>
+                </el-row>
               </div>
             </div>
           </div>
