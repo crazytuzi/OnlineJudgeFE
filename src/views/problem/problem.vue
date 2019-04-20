@@ -164,11 +164,25 @@
                 </el-row>
               </div>
             </div>
+            <div>
+
+              <div>
+                <el-row>
+                  <el-col :span="11">
+                    <div>
+                      <i class="el-icon-info"> Statistic</i>
+                    </div>
+                  </el-col>
+                  <el-col :span="4" :offset="1">
+                    <el-button type="primary" size="mini">Details</el-button>
+                  </el-col>
+                </el-row>
+              </div>
+              <div id="chart"  :style="{width: '175px', height: '175px'}"></div>
+            </div>
           </div>
         </el-col>
       </el-row>
-      <div>
-    </div>
     </div>
 </template>
 
@@ -178,6 +192,11 @@
     import 'codemirror/mode/clike/clike.js'
     import 'codemirror/mode/python/python.js'
     import {getProblemDetail, addSubmission, addCollection, getCollections, delCollection} from "../../api/api"
+    let echarts = require('echarts/lib/echarts');
+    require('echarts/lib/chart/pie');
+    require('echarts/lib/component/tooltip');
+    require('echarts/lib/component/toolbox');
+    require('echarts/lib/component/legend');
     let Languages={
       'gcc' : 0,
       'g++' : 1,
@@ -250,6 +269,56 @@ int main()
               label: 'Material'
             }],
             theme: Themes["solarized light"],
+            pie_option: {
+              tooltip : {
+                trigger: 'item',
+                formatter: "{b} : {c} ({d}%)"
+              },
+              legend:{
+                bottom: 0,
+                left: 'center',
+                data:['AC','WA']
+              },
+              series : [
+                {
+                  type:'pie',
+                  radius : '75%',
+                  center: ['45%', '45%'],
+                  data:[
+                    {value:0, name:'AC'},
+                    {value:0, name:'WA'},
+                  ],
+                  itemStyle: {
+                    normal: {
+                      shadowBlur: 5,
+                      shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                  },
+                  label: {
+                    normal: {
+                      show: true,
+                      position:'inner',
+                      formatter:'{d}%',
+                      textStyle: {
+                        color: '#123456'
+                      },
+                    },
+                    emphasis: {
+                      show: true
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    },
+                    emphasis: {
+                      show: true
+                    }
+                  },
+                  color:['#5cb85c', '#d9534f']
+                }
+              ]
+            },
             that: this,
           };
         },
@@ -263,6 +332,11 @@ int main()
                 this.problem_id
               ).then((response)=>{
                 this.problem = response.data;
+                this.pie_option.series[0].data = [
+                  {value:this.problem.accepted_number, name:'AC'},
+                  {value:this.problem.submission_number-this.problem.accepted_number, name:'WA'},
+                ];
+                this.drawPie('chart',this.pie_option);
                 let userInfo = this.$store.state.userInfo;
                 if (userInfo['id'] != null && userInfo['name'] != null
                   && userInfo['token'] != null&&this.$store.state.userCollections!=null)
@@ -353,6 +427,10 @@ int main()
           onlanguagechangeHandler(e){
               this.cmOption['mode'] = Modes[e];
           },
+          drawPie(id,option) {
+            let chart = echarts.init(document.getElementById(id));
+            chart.setOption(option);
+          }
         },
     }
 </script>
