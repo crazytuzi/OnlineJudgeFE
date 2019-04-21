@@ -158,13 +158,15 @@
     let Languages={
       'gcc' : 0,
       'g++' : 1,
-      'Python' : 2,
-      'Java' : 3
+      'Python2' : 2,
+      'Python3' : 3,
+      'Java' : 4
     };
     let languageCodeToStr=[
       'gcc',
       'g++',
-      'Python',
+      'Python2',
+      'Python3',
       'Java'
     ];
     export default {
@@ -219,8 +221,11 @@
             value: Languages["g++"],
             label: 'g++'
           }, {
-            value: Languages.Python,
-            label: 'Python'
+            value: Languages.Python2,
+            label: 'Python2'
+          }, {
+            value: Languages.Python3,
+            label: 'Python3'
           }, {
             value: Languages.Java,
             label: 'Java'
