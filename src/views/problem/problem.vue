@@ -331,18 +331,23 @@ int main()
                 formatter: "{b} : {c} ({d}%)"
               },
               legend:{
-                bottom: 0,
+                bottom: 50,
                 left: 'center',
-                data:['AC','WA']
+                data:['AC','WA','TLE','MLE','CE','RE']
               },
               series : [
                 {
                   type:'pie',
-                  radius : '75%',
-                  center: ['50%', '50%'],
+                  radius : ['10%','80%'],
+                  roseType: 'area',
+                  center: ['60%', '50%'],
                   data:[
                     {value:0, name:'AC'},
                     {value:0, name:'WA'},
+                    {value:0, name:'TLE'},
+                    {value:0, name:'MLE'},
+                    {value:0, name:'CE'},
+                    {value:0, name:'RE'},
                   ],
                   itemStyle: {
                     normal: {
@@ -363,15 +368,8 @@ int main()
                       show: true
                     }
                   },
-                  labelLine: {
-                    normal: {
-                      show: false
-                    },
-                    emphasis: {
-                      show: true
-                    }
-                  },
-                  color:['#5cb85c', '#d9534f']
+                  color:['#5cb85c', '#d9534f','#f0ad4e','#e2f04e',
+                    '#ff0000', '#ff4500']
                 }
               ]
             },
@@ -394,7 +392,11 @@ int main()
                 ];
                 this.completepie_option.series[0].data = [
                   {value:this.problem.accepted_number, name:'AC'},
-                  {value:this.problem.submission_number-this.problem.accepted_number, name:'WA'},
+                  {value:this.problem.wrong_answer_number, name:'WA'},
+                  {value:this.problem.time_limit_number, name:'TLE'},
+                  {value:this.problem.memory_limit_number, name:'MLE'},
+                  {value:this.problem.compile_error_number, name:'CE'},
+                  {value:this.problem.runtime_error_number, name:'RE'},
                 ];
                 this.drawPie();
                 let userInfo = this.$store.state.userInfo;
