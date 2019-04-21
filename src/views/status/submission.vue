@@ -69,7 +69,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <div class="codemirror">
+    <div class="codemirror" style="font-size: 18px">
       <!-- codemirror -->
       <codemirror v-model="code" :options="cmOption"></codemirror>
     </div>

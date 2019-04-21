@@ -65,7 +65,7 @@
               </el-select>
             </div>
           </div>
-          <div class="codemirror" style="width: 500px;">
+          <div class="codemirror" style="width: 600px;font-size: 18px">
             <!-- codemirror -->
             <codemirror v-model="code" :options="cmOption"></codemirror>
           </div>
@@ -243,9 +243,12 @@ int main()
             cmOption: {
               width: '50%',
               tabSize: 4,
+              extraKeys: { "Ctrl": "autocomplete" },
               styleActiveLine: true,
               lineNumbers: true,
               line: true,
+              matchBrackets: true,
+              showCursorWhenSelecting: true,
               mode: 'text/x-csrc',
               theme: 'solarized light',
             },
