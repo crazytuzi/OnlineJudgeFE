@@ -22,31 +22,31 @@
           {
             name: "Home",
             index: "1",
-            icon: "el-icon-menu",
+            icon: "el-icon-oj-home-g",
             link: "/app/home",
           },
           {
             name: "Problems",
             index: "2",
-            icon: "el-icon-location",
+            icon: "el-icon-oj-wentiliebiao",
             link: "/app/problems",
           },
           {
             name: "Status",
             index: "3",
-            icon: "el-icon-location",
+            icon: "el-icon-oj-Stats",
             link: "/app/status",
           },
           {
             name: "Contests",
             index: "4",
-            icon: "el-icon-location",
+            icon: "el-icon-oj-lishibisai",
             link: "/app/contests",
           },
           {
             name: "Rank",
             index: "5",
-            icon: "el-icon-location",
+            icon: "el-icon-oj-rankings",
             link: "/app/rank",
           }
         ],

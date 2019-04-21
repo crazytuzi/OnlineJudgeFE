@@ -90,7 +90,7 @@
           </div>
           <div>
             <div>
-              <i class="el-icon-info"> Information</i>
+              <i class="el-icon-oj-info"> Information</i>
             </div>
             <div>
               <div>
@@ -170,7 +170,7 @@
                 <el-row>
                   <el-col :span="11">
                     <div>
-                      <i class="el-icon-info"> Statistic</i>
+                      <i class="el-icon-oj-statistics"> Statistic</i>
                     </div>
                   </el-col>
                   <el-col :span="4" :offset="1">
