@@ -2,7 +2,7 @@
   <div>
     <div>
       <el-row :gutter="20">
-        <el-col :span="4"><div>
+        <el-col :span="4" :offset="2"><div>
           <el-select v-model="state" placeholder="State">
             <el-option
               v-for="item in states"

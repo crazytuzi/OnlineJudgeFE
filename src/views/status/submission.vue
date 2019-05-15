@@ -69,7 +69,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <div class="codemirror">
+    <div class="codemirror" style="font-size: 18px">
       <!-- codemirror -->
       <codemirror v-model="code" :options="cmOption"></codemirror>
     </div>
@@ -100,12 +100,14 @@
     let languageCodeToStr=[
       'gcc',
       'g++',
-      'Python',
+      'Python2',
+      'Python3',
       'Java'
     ];
     let Modes = [
       'text/x-csrc',
       'text/x-c++src',
+      'text/x-python',
       'text/x-python',
       'text/x-java',
     ];

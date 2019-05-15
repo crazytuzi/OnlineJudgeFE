@@ -65,13 +65,13 @@
               </el-select>
             </div>
           </div>
-          <div class="codemirror" style="width: 500px;">
+          <div class="codemirror" style="width: 600px;font-size: 18px">
             <!-- codemirror -->
             <codemirror v-model="code" :options="cmOption"></codemirror>
           </div>
           <div>
             <el-button type="primary"
-                       @click="submitHandle">提交代码
+                       @click="submitHandle">submit
             </el-button>
           </div>
         </el-col>
@@ -90,44 +90,123 @@
           </div>
           <div>
             <div>
-              <i class="el-icon-info"> Information</i>
+              <i class="el-icon-oj-info"> Information</i>
             </div>
             <div>
               <div>
-                ID:{{problem_id}}
+              <el-row>
+                <el-col :span="15">
+                  <div>
+                    ID:
+                  </div>
+                </el-col>
+                <el-col :span="4" :offset="2">
+                  <div style="text-align: right">
+                  {{problem_id}}
+                  </div>
+                </el-col>
+              </el-row>
               </div>
               <div>
-                Time Limit:{{problem.time_limit}}
+              <el-row>
+                <el-col :span="15">
+                  <div>
+                    Time Limit:
+                  </div>
+                </el-col>
+                <el-col :span="4" :offset="1">
+                  <div style="text-align: right">
+                    {{problem.time_limit}}
+                  </div>
+                </el-col>
+              </el-row>
+            </div>
+              <div>
+                <el-row>
+                  <el-col :span="15">
+                    <div>
+                      Memory Limit
+                    </div>
+                  </el-col>
+                  <el-col :span="4" :offset="2">
+                    <div style="text-align: right">
+                      {{problem.memory_limit}}
+                    </div>
+                  </el-col>
+                </el-row>
               </div>
               <div>
-                Memory Limit:{{problem.memory_limit}}
+                <el-row>
+                  <el-col :span="15">
+                    <div>
+                      Accepted:
+                    </div>
+                  </el-col>
+                  <el-col :span="4" :offset="2">
+                    <div style="text-align: right">
+                      {{problem.accepted_number}}
+                    </div>
+                  </el-col>
+                </el-row>
               </div>
               <div>
-                Accepted:{{problem.accepted_number}}
+                <el-row>
+                  <el-col :span="15">
+                    <div>
+                      Submission:
+                    </div>
+                  </el-col>
+                  <el-col :span="4" :offset="2">
+                    <div style="text-align: right">
+                      {{problem.submission_number}}
+                    </div>
+                  </el-col>
+                </el-row>
               </div>
+            </div>
+            <div>
+
               <div>
-                Submission:{{problem.submission_number}}
+                <el-row>
+                  <el-col :span="11">
+                    <div>
+                      <i class="el-icon-oj-statistics"> Statistic</i>
+                    </div>
+                  </el-col>
+                  <el-col :span="4" :offset="1">
+                    <el-button type="primary" size="mini" @click="dialogTableVisible = true">Details</el-button>
+                  </el-col>
+                </el-row>
               </div>
+              <div id="chart"  :style="{width: '175px', height: '175px'}"></div>
+              <el-dialog :visible.sync="dialogTableVisible">
+                <completechart v-bind:completepie_option="completepie_option"></completechart>
+              </el-dialog>
             </div>
           </div>
         </el-col>
       </el-row>
-      <div>
-    </div>
     </div>
 </template>
 
 <script>
+    import completechart from './completechart'
     import 'codemirror/theme/solarized.css'
     import 'codemirror/theme/material.css'
     import 'codemirror/mode/clike/clike.js'
     import 'codemirror/mode/python/python.js'
     import {getProblemDetail, addSubmission, addCollection, getCollections, delCollection} from "../../api/api"
+    let echarts = require('echarts/lib/echarts');
+    require('echarts/lib/chart/pie');
+    require('echarts/lib/component/tooltip');
+    require('echarts/lib/component/toolbox');
+    require('echarts/lib/component/legend');
     let Languages={
       'gcc' : 0,
       'g++' : 1,
-      'Python' : 2,
-      'Java' : 3
+      'Python2' : 2,
+      'Python3' : 3,
+      'Java' : 4
     };
     let Themes= {
       'solarized light': 0,
@@ -143,9 +222,11 @@
       'text/x-csrc',
       'text/x-c++src',
       'text/x-python',
+      'text/x-python',
       'text/x-java',
     ];
     export default {
+        components: {completechart},
         name: "Problem",
         data(){
           const code = `#include <stdio.h>
@@ -164,9 +245,12 @@ int main()
             cmOption: {
               width: '50%',
               tabSize: 4,
+              extraKeys: { "Ctrl": "autocomplete" },
               styleActiveLine: true,
               lineNumbers: true,
               line: true,
+              matchBrackets: true,
+              showCursorWhenSelecting: true,
               mode: 'text/x-csrc',
               theme: 'solarized light',
             },
@@ -177,9 +261,12 @@ int main()
               value: Languages["g++"],
               label: 'g++'
             }, {
-              value: Languages.Python,
-              label: 'Python'
+              value: Languages.Python2,
+              label: 'Python2'
             }, {
+              value: Languages.Python3,
+              label: 'Python3'
+            },{
               value: Languages.Java,
               label: 'Java'
             }],
@@ -195,6 +282,105 @@ int main()
               label: 'Material'
             }],
             theme: Themes["solarized light"],
+            dialogTableVisible: false,
+            pie_option: {
+              tooltip : {
+                trigger: 'item',
+                formatter: "{b} : {c} ({d}%)"
+              },
+              legend:{
+                bottom: 0,
+                left: 'center',
+                data:['AC','WA']
+              },
+              series : [
+                {
+                  type:'pie',
+                  radius : '75%',
+                  center: ['45%', '45%'],
+                  data:[
+                    {value:0, name:'AC'},
+                    {value:0, name:'WA'},
+                  ],
+                  itemStyle: {
+                    normal: {
+                      shadowBlur: 5,
+                      shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                  },
+                  label: {
+                    normal: {
+                      show: true,
+                      position:'inner',
+                      formatter:'{d}%',
+                      textStyle: {
+                        color: '#123456'
+                      },
+                    },
+                    emphasis: {
+                      show: true
+                    }
+                  },
+                  labelLine: {
+                    normal: {
+                      show: false
+                    },
+                    emphasis: {
+                      show: true
+                    }
+                  },
+                  color:['#5cb85c', '#d9534f']
+                }
+              ]
+            },
+            completepie_option: {
+              tooltip : {
+                trigger: 'item',
+                formatter: "{b} : {c} ({d}%)"
+              },
+              legend:{
+                bottom: 50,
+                left: 'center',
+                data:['AC','WA','TLE','MLE','CE','RE']
+              },
+              series : [
+                {
+                  type:'pie',
+                  radius : ['10%','80%'],
+                  roseType: 'area',
+                  center: ['60%', '50%'],
+                  data:[
+                    {value:0, name:'AC'},
+                    {value:0, name:'WA'},
+                    {value:0, name:'TLE'},
+                    {value:0, name:'MLE'},
+                    {value:0, name:'CE'},
+                    {value:0, name:'RE'},
+                  ],
+                  itemStyle: {
+                    normal: {
+                      shadowBlur: 5,
+                      shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                  },
+                  label: {
+                    normal: {
+                      show: true,
+                      position:'inner',
+                      formatter:'{d}%',
+                      textStyle: {
+                        color: '#123456'
+                      },
+                    },
+                    emphasis: {
+                      show: true
+                    }
+                  },
+                  color:['#5cb85c', '#d9534f','#f0ad4e','#e2f04e',
+                    '#ff0000', '#ff4500']
+                }
+              ]
+            },
             that: this,
           };
         },
@@ -208,6 +394,19 @@ int main()
                 this.problem_id
               ).then((response)=>{
                 this.problem = response.data;
+                this.pie_option.series[0].data = [
+                  {value:this.problem.accepted_number, name:'AC'},
+                  {value:this.problem.submission_number-this.problem.accepted_number, name:'WA'},
+                ];
+                this.completepie_option.series[0].data = [
+                  {value:this.problem.accepted_number, name:'AC'},
+                  {value:this.problem.wrong_answer_number, name:'WA'},
+                  {value:this.problem.time_limit_number, name:'TLE'},
+                  {value:this.problem.memory_limit_number, name:'MLE'},
+                  {value:this.problem.compile_error_number, name:'CE'},
+                  {value:this.problem.runtime_error_number, name:'RE'},
+                ];
+                this.drawPie();
                 let userInfo = this.$store.state.userInfo;
                 if (userInfo['id'] != null && userInfo['name'] != null
                   && userInfo['token'] != null&&this.$store.state.userCollections!=null)
@@ -297,6 +496,10 @@ int main()
           },
           onlanguagechangeHandler(e){
               this.cmOption['mode'] = Modes[e];
+          },
+          drawPie() {
+            let chart = echarts.init(document.getElementById('chart'));
+            chart.setOption(this.pie_option);
           },
         },
     }

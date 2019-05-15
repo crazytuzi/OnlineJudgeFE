@@ -80,10 +80,10 @@
             <el-button type="primary" round size="small" v-else-if="submissions[scope.$index].result===Status.WRONG_ANSWER" style="background-color: #d9534f;border-color: #FFFFFF">Wrong Answer</el-button>
             <el-button type="primary" round size="small" v-else-if="submissions[scope.$index].result===Status.TIME_LIMIT_EXCEED" style="background-color: #f0ad4e;border-color: #FFFFFF">Time Limit Exceed</el-button>
             <el-button type="primary" round size="small" v-else-if="submissions[scope.$index].result===Status.MEMORY_LIMIT_EXCEED" style="background-color: #f0ad4e;border-color: #FFFFFF">Memory Limit Exceed</el-button>
-            <el-button type="primary" round size="small" v-else-if="submissions[scope.$index].result===Status.OUTPUT_LIMIT_EXCEED" style="background-color: #FFFFFF;border-color: #FFFFFF">Output Limit Exceed</el-button>
+            <el-button type="primary" round size="small" v-else-if="submissions[scope.$index].result===Status.OUTPUT_LIMIT_EXCEED" style="background-color: #f0ad4e;border-color: #FFFFFF">Output Limit Exceed</el-button>
             <el-button type="primary" round size="small" v-else-if="submissions[scope.$index].result===Status.RUNTIME_ERROR" style="background-color: #d9534f;border-color: #FFFFFF">Runtime Error</el-button>
             <el-button type="primary" round size="small" v-else-if="submissions[scope.$index].result===Status.COMPILE_ERROR" style="background-color: #d9534f;border-color: #FFFFFF">Compile Error</el-button>
-            <el-button type="primary" round size="small" v-else-if="submissions[scope.$index].result===Status.RESTRICTED_FUNCTION" style="background-color: #428bca;border-color: #FFFFFF">Restricted Function</el-button>
+            <el-button type="primary" round size="small" v-else-if="submissions[scope.$index].result===Status.RESTRICTED_FUNCTION" style="background-color: #d9534f;border-color: #FFFFFF">Restricted Function</el-button>
             <el-button type="primary" round size="small" v-else-if="submissions[scope.$index].result===Status.SYSTEM_ERROR" style="background-color: #428bca;border-color: #FFFFFF">System Error</el-button>
             <el-button type="primary" round size="small" v-else style="background-color: #428bca;border-color: #FFFFFF">Other</el-button>
           </template>
@@ -158,13 +158,15 @@
     let Languages={
       'gcc' : 0,
       'g++' : 1,
-      'Python' : 2,
-      'Java' : 3
+      'Python2' : 2,
+      'Python3' : 3,
+      'Java' : 4
     };
     let languageCodeToStr=[
       'gcc',
       'g++',
-      'Python',
+      'Python2',
+      'Python3',
       'Java'
     ];
     export default {
@@ -219,8 +221,11 @@
             value: Languages["g++"],
             label: 'g++'
           }, {
-            value: Languages.Python,
-            label: 'Python'
+            value: Languages.Python2,
+            label: 'Python2'
+          }, {
+            value: Languages.Python3,
+            label: 'Python3'
           }, {
             value: Languages.Java,
             label: 'Java'

@@ -2,7 +2,7 @@
   <div>
     <div>
       <el-row :gutter="20">
-        <el-col :span="4"><div>
+        <el-col :span="4" :offset="2"><div>
           <el-input v-model="problemId" placeholder="Problem ID" style="width: 200px"></el-input>
         </div></el-col>
         <el-col :span="4"><div>

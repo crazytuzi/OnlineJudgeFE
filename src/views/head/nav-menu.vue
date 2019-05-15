@@ -1,9 +1,15 @@
 <template>
   <div>
-    <el-menu :default-active="defaultIndex" class="el-menu-demo" mode="horizontal" @select="selectItems">
-      <el-menu-item v-for = "(menu,index) in hormenuList" :index="menu.index" :key="index"><i :class="menu.icon"></i>{{menu.name}}</el-menu-item>
-      <BtnMenu></BtnMenu>
-    </el-menu>
+    <el-row :gutter="24">
+      <el-col :span="16" :offset="3">
+        <el-menu :default-active="defaultIndex" class="el-menu-demo" mode="horizontal" @select="selectItems">
+          <el-menu-item v-for = "(menu,index) in hormenuList" :index="menu.index" :key="index"><i :class="menu.icon"></i>{{menu.name}}</el-menu-item>
+        </el-menu>
+      </el-col>
+      <el-col :span="4">
+        <BtnMenu></BtnMenu>
+      </el-col>
+    </el-row>
   </div>
 </template>
 <script>
@@ -16,31 +22,31 @@
           {
             name: "Home",
             index: "1",
-            icon: "el-icon-menu",
+            icon: "el-icon-oj-home-g",
             link: "/app/home",
           },
           {
             name: "Problems",
             index: "2",
-            icon: "el-icon-location",
+            icon: "el-icon-oj-wentiliebiao",
             link: "/app/problems",
           },
           {
             name: "Status",
             index: "3",
-            icon: "el-icon-location",
+            icon: "el-icon-oj-Stats",
             link: "/app/status",
           },
           {
             name: "Contests",
             index: "4",
-            icon: "el-icon-location",
+            icon: "el-icon-oj-lishibisai",
             link: "/app/contests",
           },
           {
             name: "Rank",
             index: "5",
-            icon: "el-icon-location",
+            icon: "el-icon-oj-rankings",
             link: "/app/rank",
           }
         ],
