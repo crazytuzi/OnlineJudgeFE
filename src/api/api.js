@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import cookie from '../static/js/cookie'
 
 let host = '/api';
 
@@ -16,7 +16,9 @@ export const getSubmissions = params => { return axios.get(`${host}/submissions/
 export const getSubmissionDetail = submissionId => { return axios.get(`${host}/submissions/${submissionId}`+'/')};
 
 // 添加提交记录
-export const addSubmission = params => { return axios.post(`${host}/submissions/`,params)};
+export const addSubmission = params => { return axios.post(`${host}/submissions/`,params,{
+  headers:{'X-CSRFToken': cookie.getCookie('csrftoken')}
+})};
 
 //获取Accept列表
 export const getAcceptedProblems = params => { return axios.get(`${host}/useracceptedproblems/`,{ params: params  })};
