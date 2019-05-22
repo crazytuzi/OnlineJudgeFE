@@ -2,27 +2,80 @@
   <div>
     <div style="text-align: center">
         <img :src="userprofile.avatar" width="100" height="100"/>
+        <div style="color: #08c">{{userprofile['username']}}</div>
     </div>
+    <hr style="width: 85%">
+    <div>
+      <el-row :gutter="20">
+        <el-col :span="4" :offset="2" class="field">
+          Real Name
+        </el-col>
+        <el-col :span="5">
+          <div class="info">
+            {{userprofile['real_name']}}
+          </div>
+        </el-col>
+        <el-col :span="4" :offset="2" class="field">
+          Student ID
+        </el-col>
+        <el-col :span="5">
+          <div class="info">
+            {{userprofile['student_no']}}
+          </div>
+        </el-col>
+      </el-row>
+      <el-row :gutter="20">
+        <el-col :span="4" :offset="2" class="field">
+          QQ
+        </el-col>
+        <el-col :span="5">
+          <div class="info">
+            {{userprofile['QQ']}}
+          </div>
+        </el-col>
+        <el-col :span="4" :offset="2" class="field">
+          blog
+        </el-col>
+        <el-col :span="5">
+          <div class="info">
+            {{userprofile['blog']}}
+          </div>
+        </el-col>
+      </el-row>
+      <el-row :gutter="20">
+        <el-col :span="4" :offset="2" class="field">
+          mood
+        </el-col>
+        <el-col :span="16">
+          <div class="info">
+            {{userprofile['mood']}}
+          </div>
+        </el-col>
+      </el-row>
+    </div>
+    <hr style="width: 85%">
     <div>
       <el-row :gutter="24">
         <el-col :span="4" :offset="4">
-          <div style="text-align: center">
+          <div style="text-align: center" class="field">
             Accepted
           </div>
           <div style="text-align: center">
             {{acceptedList.length}}
           </div>
         </el-col>
+        <div style="float:left;width: 1px;height: 40px; background: #9f9f9f;"></div>
         <el-col :span="4" :offset="1">
-          <div style="text-align: center">
+          <div style="text-align: center" class="field">
             Challenging
           </div>
           <div style="text-align: center">
             {{challengingList.length}}
           </div>
         </el-col>
+        <div style="float:left;width: 1px;height: 40px; background: #9f9f9f;"></div>
         <el-col :span="4" :offset="1">
-          <div style="text-align: center">
+          <div style="text-align: center" class="field">
             Submissions
           </div>
           <div style="text-align: center">
@@ -32,57 +85,9 @@
       </el-row>
     </div>
     <div>
-      <el-row :gutter="20">
-        <el-col :span="4" :offset="2">
-          Real Name
-        </el-col>
-        <el-col :span="5">
-          <div>
-            {{userprofile['real_name']}}
-          </div>
-        </el-col>
-        <el-col :span="4" :offset="2">
-          Student ID
-        </el-col>
-        <el-col :span="5">
-          <div>
-            {{userprofile['student_no']}}
-          </div>
-        </el-col>
-      </el-row>
-      <el-row :gutter="20">
-        <el-col :span="4" :offset="2">
-          QQ
-        </el-col>
-        <el-col :span="5">
-          <div>
-            {{userprofile['QQ']}}
-          </div>
-        </el-col>
-        <el-col :span="4" :offset="2">
-          blog
-        </el-col>
-        <el-col :span="5">
-          <div>
-            {{userprofile['blog']}}
-          </div>
-        </el-col>
-      </el-row>
-      <el-row :gutter="20">
-        <el-col :span="4" :offset="2">
-          mood
-        </el-col>
-        <el-col :span="16">
-          <div>
-            {{userprofile['mood']}}
-          </div>
-        </el-col>
-      </el-row>
-    </div>
-    <div>
       <el-row :gutter="24">
         <el-col :span="8" :offset="7">
-          <div style="text-align: center">
+          <div style="text-align: center" class="field">
             List of accepted problems
           </div>
           <div style="text-align: center">
@@ -92,7 +97,7 @@
       </el-row>
       <el-row :gutter="24">
         <el-col :span="8" :offset="7">
-          <div style="text-align: center">
+          <div style="text-align: center" class="field">
             List of challenging problems
           </div>
           <div style="text-align: center">
@@ -185,5 +190,10 @@
 </script>
 
 <style scoped>
-
+  .info{
+    color: #58992a;
+  }
+  .field{
+    color: #9f9f9f;
+  }
 </style>

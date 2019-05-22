@@ -14,7 +14,7 @@
         </template>
         <template>
           <el-dropdown v-if="isLogin == true" @command="commandHandler">
-            <el-button type="primary" size="medium" round>
+            <el-button size="medium" round>
               {{username}}<i class="el-icon-arrow-down el-icon--right"></i>
             </el-button>
             <el-dropdown-menu slot="dropdown">
@@ -76,7 +76,6 @@
     },
     methods: {
       Login() {
-        let that = this;
         if (this.login_username === "") {
           Message({
             message: '账号不能为空',
@@ -300,7 +299,7 @@
         this.getChallengingProblem();
         this.getCollection();
         this.isLogin = true;
-        this.username = userInfo['id'];
+        this.username = userInfo['name'];
       } else {
         this.delStores();
       }

@@ -17,7 +17,7 @@
       </el-row>
       <el-row :gutter="24">
         <el-col :span="3" :offset="2">
-          <div class="font">
+          <div class="font"  style="padding-top: 5px">
             Start Time:
           </div>
         </el-col>
@@ -33,7 +33,7 @@
           </div>
         </el-col>
         <el-col :span="3" :offset="4">
-          <div class="font">
+          <div class="font" style="padding-top: 5px">
            End Time:
           </div>
         </el-col>
