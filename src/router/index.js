@@ -26,6 +26,7 @@ import store from '../store/store'
 // };
 
 import home from '../views/home/home'
+import announcement from '../views/home/announcement'
 import problems from '../views/problem/problems'
 import status from '../views/status/status'
 import submission from '../views/status/submission'
@@ -117,6 +118,19 @@ let router = new Router({
           },
           meta: {
             title: "Rank",
+            need_log: false
+          },
+        },
+        {
+          path: 'announcement/:announcement_id',
+          name: 'announcement',
+          components: {
+            'v-header': NavMenu,
+            'v-content': announcement,
+            'v-footer': footer
+          },
+          meta: {
+            title: "Announcement",
             need_log: false
           },
         },

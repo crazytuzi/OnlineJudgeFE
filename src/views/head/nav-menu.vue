@@ -1,7 +1,13 @@
 <template>
   <div>
     <el-row :gutter="24">
-      <el-col :span="16" :offset="3">
+      <el-col :span="6" :offset="1">
+        <div>
+          <img src="../../static/images/img.png" style="width: 70px;height: 70px;margin-top: -10px;display:inline">
+          <div style="font-size: 30px;display:inline;top: -15px;position: relative;left: 10px">Online Judge</div>
+        </div>
+      </el-col>
+      <el-col :span="12">
         <el-menu :default-active="defaultIndex" class="el-menu-demo" mode="horizontal" @select="selectItems">
           <el-menu-item v-for = "(menu,index) in hormenuList" :index="menu.index" :key="index"><i :class="menu.icon"></i>{{menu.name}}</el-menu-item>
         </el-menu>

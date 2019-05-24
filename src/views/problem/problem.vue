@@ -2,42 +2,49 @@
     <div style="min-height: 1000px">
       <el-row :gutter="24">
         <el-col :span="16" :offset="1">
+          <el-card class="box-card">
           <div>
-            <div style="font-size: 25px">
+            <div style="font-size: 25px;position: relative;left: -10px;">
               {{problem.title}}
             </div>
           </div>
-          <div>
+          </el-card>
+          <el-card class="box-card">
+          <div style="height: 10px;">
+          </div>
+          <div style="position: relative">
             <div class="font">
               Description
             </div>
             {{problem.description}}
           </div>
-          <div>
+          <div style="top: 10px;position: relative">
             <div class="font">
               Input
             </div>
             {{problem.input_description}}
           </div>
-          <div>
+          <div style="top: 10px;position: relative">
             <div class="font">
               Output
             </div>
             {{problem.output_description}}
           </div>
-          <div>
+          <div style="top: 10px;position: relative">
             <div class="font">
               Sample Input
             </div>
             {{problem.sample_input}}
           </div>
-          <div>
+          <div style="top: 10px;position: relative">
             <div class="font">
               Sample Output
             </div>
             {{problem.sample_output}}
           </div>
-          <div>
+          </el-card>
+          <el-card class="box-card">
+          <div style="top: 20px;position: relative">
             <div style="display:inline">
               Language:
             </div>
@@ -65,29 +72,43 @@
               </el-select>
             </div>
           </div>
-          <div class="codemirror" style="width: 600px;font-size: 18px">
+          <div class="codemirror" style="width: 600px;font-size: 18px;position: relative;top: 20px;">
             <!-- codemirror -->
-            <codemirror v-model="code" :options="cmOption"></codemirror>
+            <codemirror v-model="code[language]" :options="cmOption"></codemirror>
           </div>
-          <div>
+          <div style="position: relative;top: 20px;">
             <el-button type="primary"
                        @click="submitHandle">submit
             </el-button>
           </div>
+          </el-card>
         </el-col>
         <el-col :span="4">
+          <el-card class="box-card">
           <div>
-            <el-progress type="circle" :percentage="100" status="success" :width="43" v-if="that.$store.state.userAcceptedProblems!==null&&that.$store.state.userAcceptedProblems.hasOwnProperty(problem_id)"></el-progress>
-            <el-progress type="circle" :percentage="50" status="exception" :width="43" v-else-if="that.$store.state.userChallengingProblems!==null&&that.$store.state.userChallengingProblems.hasOwnProperty(problem_id)"></el-progress>
-            <el-progress type="circle" :percentage="0" :width="43" :show-text="false" v-else></el-progress>
+            <el-tooltip class="item" effect="dark" content="Accepted" placement="right-start"  v-if="that.$store.state.userAcceptedProblems!==null&&that.$store.state.userAcceptedProblems.hasOwnProperty(problem_id)">
+              <el-progress type="circle" :percentage="100" status="success" :width="43"></el-progress>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="Challenging" placement="right-start"  v-else-if="that.$store.state.userChallengingProblems!==null&&that.$store.state.userChallengingProblems.hasOwnProperty(problem_id)">
+              <el-progress type="circle" :percentage="50" status="exception" :width="43"></el-progress>
+            </el-tooltip>
+            <el-tooltip class="item" effect="dark" content="Not Start" placement="right-start"  v-else>
+              <el-progress type="circle" :percentage="0" :width="43" :show-text="false"></el-progress>
+            </el-tooltip>
           </div>
           <div>
             <div v-if="problem.parent_problem===null&&this.$store.state.userInfo['id']!==null
         &&this.$store.state.userInfo['name']!==null&&this.$store.state.userInfo['token']!==null">
-              <el-button type="primary" icon="el-icon-oj-aixin_shixin" circle v-if="isCollect" @click="collectHandle"></el-button>
-              <el-button type="primary" icon="el-icon-oj-aixin" circle v-else @click="collectHandle"></el-button>
+              <el-tooltip class="item" effect="dark" content="Cancel Collect" placement="right-start"  v-if="isCollect">
+                <el-button type="primary" icon="el-icon-oj-aixin_shixin" circle  @click="collectHandle"></el-button>
+              </el-tooltip>
+              <el-tooltip class="item" effect="dark" content="Collect" placement="right-start"  v-else >
+                <el-button type="primary" icon="el-icon-oj-aixin" circle @click="collectHandle"></el-button>
+              </el-tooltip>
             </div>
           </div>
+          </el-card>
+          <el-card class="box-card">
           <div>
             <div>
               <i class="el-icon-oj-info"> Information</i>
@@ -164,16 +185,18 @@
                 </el-row>
               </div>
             </div>
+          </div>
+          </el-card>
+          <el-card class="box-card">
             <div>
-
               <div>
                 <el-row>
-                  <el-col :span="11">
+                  <el-col :span="12">
                     <div>
                       <i class="el-icon-oj-statistics"> Statistic</i>
                     </div>
                   </el-col>
-                  <el-col :span="4" :offset="1">
+                  <el-col :span="8" :offset="1">
                     <el-button type="primary" size="mini" @click="dialogTableVisible = true">Details</el-button>
                   </el-col>
                 </el-row>
@@ -183,7 +206,7 @@
                 <completechart v-bind:completepie_option="completepie_option"></completechart>
               </el-dialog>
             </div>
-          </div>
+          </el-card>
         </el-col>
       </el-row>
     </div>
@@ -229,16 +252,41 @@
         components: {completechart},
         name: "Problem",
         data(){
-          const code = `#include <stdio.h>
+          return {
+            code: [
+              `#include <stdio.h>
 int main()
 {
     int a,b;
     scanf("%d%d",&a,&b);
     printf("%d",a+b);
     return 0;
-}`;
-          return {
-            code,
+}`,
+              `#include <iosream>
+using namespace std;
+int main()
+{
+    int a,b;
+    cin>>a>>b;
+    cout<<a+b;
+    return 0;
+}`,
+              `a = int(input())
+b = int(input())
+print(a+b)`,
+              `a = int(input())
+b = int(input())
+print(a+b)`,
+              `import java.util.Scanner;
+public class Main{
+    public static void main(String[] args){
+        Scanner in=new Scanner(System.in);
+        int a=in.nextInt();
+        int b=in.nextInt();
+        System.out.println((a+b));
+    }
+}`,
+            ],
             problem_id: '',
             problem: {},
             isCollect: false,
@@ -426,7 +474,7 @@ int main()
                 user: userInfo['id'],
                 problem:this.problem_id,
                 language:this.language,
-                code: this.code,
+                code: this.code[this.language],
               }).then((response)=> {
                 this.$store.state.topnavigation='3';
                 this.$router.push("/app/status");

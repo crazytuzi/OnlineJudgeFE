@@ -1,9 +1,10 @@
 <template>
     <div>
-      <div>
+      <el-card class="box-card" style="height: 220px;margin-top: -5px">
+      <div style="margin-top: -10px">
         Avatar Setting
         <el-row :gutter="20">
-          <el-col :span="20" :offset="2">
+          <el-col :span="20" :offset="6">
             <el-upload
               action="https://jsonplaceholder.typicode.com/posts/"
               list-type="picture-card"
@@ -17,11 +18,13 @@
             <el-dialog :visible.sync="dialogVisible">
               <img width="100%" :src="dialogImageUrl" alt="">
             </el-dialog>
-            <el-button style="margin-left: 10px;" size="small" type="success" @click="avatarUpdate">upload avatar</el-button>
+            <el-button style="margin-left: 10px;left: 1%;position: relative" size="small" type="success" @click="avatarUpdate">upload avatar</el-button>
           </el-col>
         </el-row>
       </div>
-      <div>
+      </el-card>
+      <el-card class="box-card" style="height: 202px;">
+      <div style="margin-top: -10px">
         Profile Setting
         <el-row :gutter="20">
             <el-col :span="4" :offset="2">
@@ -62,11 +65,13 @@
         <el-row :gutter="20">
           <el-col :span="4" :offset="10">
             <el-button type="primary"
-                       @click="saveHandle">Save All
+                       @click="saveHandle"
+                        size="medium">Save All
             </el-button>
           </el-col>
         </el-row>
       </div>
+      </el-card>
     </div>
 </template>
 

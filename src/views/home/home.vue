@@ -1,12 +1,13 @@
 <template>
-    <div>
-      home
-    </div>
+  <announcements></announcements>
 </template>
-
 <script>
+  import announcements from './announcements'
     export default {
-        name: "Home"
+        name: "Home",
+        components: {
+          announcements
+        }
     }
 </script>
 
