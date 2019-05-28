@@ -262,7 +262,7 @@ int main()
     printf("%d",a+b);
     return 0;
 }`,
-              `#include <iosream>
+              `#include <iostream>
 using namespace std;
 int main()
 {
