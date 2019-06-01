@@ -119,6 +119,7 @@
                   this.allcollections.splice((this.curPage-1)*this.pageSize+index,1);
                   this.total = this.allcollections.length;
                   this.getPageCollections();
+                  this.$message.success("取消收藏成功");
                 }
               }).catch(function (error) {
                 console.log(error);

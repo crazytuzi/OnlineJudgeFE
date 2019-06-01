@@ -11,6 +11,7 @@
               ref="image"
               :on-preview="handlePictureCardPreview"
               :on-remove="handleRemove"
+              :before-upload="beforeAvatarUpload"
               :limit="1"
               accept="image/png,image/gif,image/jpeg">
               <i class="el-icon-plus"></i>
@@ -110,6 +111,17 @@
           {
             console.log(error);
           })
+        },
+        beforeAvatarUpload(file) {
+          const isImage = (file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif');
+          const isLt2M = file.size / 1024 / 1024 < 2;
+          if (!isImage) {
+            this.$message.error('只能上传图片');
+          }
+          if (!isLt2M) {
+            this.$message.error('上传图片大小不能超过200kb');
+          }
+          return isImage && isLt2M;
         },
         handleRemove(file, fileList) {
           console.log(file, fileList);

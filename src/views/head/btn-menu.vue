@@ -89,6 +89,7 @@
           });
 
         } else {
+          let that = this;
           login(
             {
               username: this.login_username,
@@ -109,14 +110,12 @@
                 this.getChallengingProblem();
                 this.getCollection();
               }).catch((function (err) {
-                Message({
-                  message: '找不到该用户',
-                  type: 'error'
-                });
+                that.$message.error("找不到改用户");
               }));
             } else {
               this.username = this.login_username;
               cookie.setCookie('name', this.login_username, 7);
+              let that = this;
               getUser({
                 username: this.username,
               }).then((res) => {
@@ -138,46 +137,25 @@
             });
           }).catch((function (error) {
             if ("non_field_errors" in error) {
-              Message({
-                message: '账号或者密码不正确',
-                type: 'error'
-              });
+              that.$message.error("密码错误");
             }
           }));
         }
       },
       Register() {
         let that = this;
-        if (this.reg_username === "") {
-          Message({
-            message: '账号不能为空',
-            type: 'warning'
-          });
+        if (this.reg_username.length < 6 || this.reg_username.length > 16) {
+          this.$message.error("用户名长度需要大于5位且小于17位");
         } else if (this.reg_email === "") {
-          Message({
-            message: '邮箱不能为空',
-            type: 'warning'
-          });
+          this.$message.error("邮箱不能为空");
         } else if (!this.checkEmail(this.reg_email)) {
-          Message({
-            message: '邮箱格式不对',
-            type: 'warning'
-          });
+          this.$message.error("邮箱格式不正确");
         } else if (this.reg_password === "") {
-          Message({
-            message: 'password is required',
-            type: 'warning'
-          });
+          this.$message.error("password is required");
         } else if (this.reg_password.length < 6 || this.reg_password.length > 16) {
-          Message({
-            message: 'password must be between 6 and 20 characters',
-            type: 'warning'
-          });
+          this.$message.error("密码长度需要大于5位且小于17位");
         } else if (this.reg_password_again !== this.reg_password) {
-          Message({
-            message: 'password does not match',
-            type: 'warning'
-          });
+          this.$message.error("两次输入密码需要相同");
         } else {
           register(
             {
@@ -199,21 +177,12 @@
             that.$store.dispatch('setAcceptedProblems');
             that.$store.dispatch('setChallengingProblems');
             that.$store.dispatch('setCollections');
-            Message({
-              message: 'Register success',
-              type: 'success'
-            });
+            this.$message.success("注册成功");
           }).catch((function (error) {
             if ("username" in error) {
-              Message({
-                message: '账号已经存在',
-                type: 'error'
-              });
+              that.$message.error("用户名已经存在");
             } else if ("email" in error) {
-              Message({
-                message: '邮箱已被注册',
-                type: 'error'
-              });
+              that.$message.error("邮箱已经被注册");
             }
           }));
         }

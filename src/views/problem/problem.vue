@@ -477,6 +477,7 @@ public class Main{
                 code: this.code[this.language],
               }).then((response)=> {
                 this.$store.state.topnavigation='3';
+                // this.$message.success("提交代码成功");
                 this.$router.push("/app/status");
               }).catch(function (error) {
                 console.log(error);
@@ -484,7 +485,7 @@ public class Main{
             }
             else
             {
-              console.log("你没有登陆");
+              this.$message.error("未登陆不能提交代码");
             }
           },
           collectHandle(){
@@ -508,6 +509,7 @@ public class Main{
                         localStorage.setItem('collections',JSON.stringify(this.$store.state.userCollections));
                         this.$store.dispatch('setCollections');
                         this.isCollect = false;
+                        this.$message.success("取消收藏成功");
                       }
                     }).catch(function (error) {
                       console.log(error);
@@ -529,6 +531,7 @@ public class Main{
                   localStorage.setItem('collections',JSON.stringify(this.$store.state.userCollections));
                   this.$store.dispatch('setCollections');
                   this.isCollect = true;
+                  this.$message.success("收藏成功");
                 }).catch(function (error) {
                   console.log(error);
                 });
