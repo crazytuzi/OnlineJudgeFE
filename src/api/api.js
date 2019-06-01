@@ -35,7 +35,9 @@ export const addCollection = params => { return axios.post(`${host}/usercollect/
 })};
 
 //取消收藏
-export const delCollection = collectionId => {return axios.delete(`${host}/usercollect/`+collectionId+'/')};
+export const delCollection = collectionId => {return axios.delete(`${host}/usercollect/`+collectionId+'/',{
+  headers:{'X-CSRFToken': cookie.getCookie('csrftoken')}
+})};
 
 //获取比赛列表
 export const getContests = params => { return axios.get(`${host}/contests/`,{ params: params  })};

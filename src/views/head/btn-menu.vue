@@ -131,10 +131,11 @@
             }
             this.LoginFormVisible = false;
             this.isLogin = true;
-            Message({
-              message: 'Login success',
-              type: 'success'
-            });
+	    this.$message({
+		  message: '登录成功',
+		  type: 'success',
+		  duration:'1000'
+		});
           }).catch((function (error) {
             if ("non_field_errors" in error) {
               that.$message.error("密码错误");
@@ -177,7 +178,11 @@
             that.$store.dispatch('setAcceptedProblems');
             that.$store.dispatch('setChallengingProblems');
             that.$store.dispatch('setCollections');
-            this.$message.success("注册成功");
+		this.$message({
+		  message: '注册成功',
+		  type: 'success',
+		  duration:'1000'
+		});
           }).catch((function (error) {
             if ("username" in error) {
               that.$message.error("用户名已经存在");
