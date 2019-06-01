@@ -30,7 +30,9 @@ export const getChallengingProblems = params => { return axios.get(`${host}/user
 export const getCollections = params => { return axios.get(`${host}/usercollect/`,{ params: params  })};
 
 // 添加收藏
-export const addCollection = params => { return axios.post(`${host}/usercollect/`,params)};
+export const addCollection = params => { return axios.post(`${host}/usercollect/`,params,{
+  headers:{'X-CSRFToken': cookie.getCookie('csrftoken')}
+})};
 
 //取消收藏
 export const delCollection = collectionId => {return axios.delete(`${host}/usercollect/`+collectionId+'/')};
@@ -64,11 +66,13 @@ export const getUser = params => {
 
 //上传头像
 export const uploadAvatar = (userId, params) => {return axios.patch(`${host}/userprofile/`+userId+'/', params,{
-  headers:{'Content-Type':'multipart/form-data'}
+  headers:{'Content-Type':'multipart/form-data','X-CSRFToken': cookie.getCookie('csrftoken')}
 })};
 
 //更新个人信息
-export const updateUserProfile = (userId, params) => {return axios.patch(`${host}/userprofile/`+userId+'/', params)};
+export const updateUserProfile = (userId, params) => {return axios.patch(`${host}/userprofile/`+userId+'/', params,{
+  headers:{'X-CSRFToken': cookie.getCookie('csrftoken')}
+})};
 
 //获取公告
 export const getAnnouncementsList = params => { return axios.get(`${host}/announcements/`,{ params: params  })};
