@@ -14,8 +14,3 @@ export const userChallengingProblems = state => {
 export const userCollections = state => {
   return state.userCollections;
 };
-
-export const goods_list = state => {
-  console.log(state.goods_list)
-  return state.goods_list;
-}
